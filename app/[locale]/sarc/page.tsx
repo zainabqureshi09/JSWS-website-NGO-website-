@@ -21,6 +21,21 @@ import { Link } from "@/i18n/routing";
 
 import { PhysicalTherapySection } from "@/components/services/PhysicalTherapySection";
 
+import DomeGallery from "@/components/DomeGallery";
+
+const sarcDomeImages = [
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.10 AM.jpeg", alt: "Physical Therapy SARC" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM (1).jpeg", alt: "Autism Rehabilitation SARC" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM (2).jpeg", alt: "Post Stroke Care SARC" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM.jpeg", alt: "Occupational Therapy SARC" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (1).jpeg", alt: "Pediatric Rehabilitation SARC" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (2).jpeg", alt: "Special Needs Clinical Care" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (3).jpeg", alt: "Therapeutic Equipment SARC" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM.jpeg", alt: "Neurological Rehabilitation" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.13 AM (1).jpeg", alt: "Sensory Play Therapy" },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.13 AM.jpeg", alt: "Physiotherapy Session" },
+];
+
 export default function SARCPage() {
   const rehabServices = [
     { title: "Autism Spectrum Disorder Care", icon: Brain, desc: "Specialized early intervention, sensory integration, and behavioral therapy for autistic children.", focus: "Behavioral & Developmental Growth" },
@@ -127,6 +142,34 @@ export default function SARCPage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* 3D Interactive SARC Dome Gallery Showcase */}
+      <section className="relative py-16 sm:py-20 bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 text-white overflow-hidden border-t border-indigo-800/40">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-3xl mb-8 space-y-3">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs sm:text-sm font-bold border border-indigo-500/30">
+            <Sparkles className="w-4 h-4 text-indigo-400" />
+            <span>Interactive 3D Rehabilitation Showcase</span>
+          </div>
+          <h2 className="font-heading text-3xl sm:text-4xl font-bold tracking-tight">
+            SARC Clinical Sessions in Action
+          </h2>
+          <p className="text-indigo-200 text-sm sm:text-base leading-relaxed">
+            Drag, tilt, and click to explore live therapeutic care, autism intervention, and physical rehabilitation sessions at SARC.
+          </p>
+        </div>
+
+        <div className="relative w-full h-[550px] sm:h-[650px] overflow-hidden rounded-3xl border border-indigo-900/50 shadow-2xl bg-black/40">
+          <DomeGallery
+            images={sarcDomeImages}
+            fit={0.65}
+            fitBasis="auto"
+            overlayBlurColor="#0f172a"
+            openedImageWidth="520px"
+            openedImageHeight="520px"
+            imageBorderRadius="16px"
+          />
         </div>
       </section>
 

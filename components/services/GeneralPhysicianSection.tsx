@@ -8,11 +8,11 @@ import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
 
 const gpImages = [
-  { src: "/gp/gp1.jpeg", alt: "General Physician OPD Consultation 1", title: "Patient Consultation & Diagnostics" },
-  { src: "/gp/gp2.jpeg", alt: "General Physician OPD Consultation 2", title: "General Physician Examination" },
-  { src: "/gp/gp3.jpeg", alt: "General Physician OPD Consultation 3", title: "Clinical Assessment & Care" },
-  { src: "/gp/gp4.jpeg", alt: "General Physician OPD Consultation 4", title: "Prescription & Patient Guidance" },
-  { src: "/gp/gp5.jpeg", alt: "General Physician OPD Consultation 5", title: "Subsidized Healthcare Support" },
+  { src: "/gp/gp1.jpeg", alt: "OPD Consultation 1", title: "ENT Consultation & Examination" },
+  { src: "/gp/gp2.jpeg", alt: "OPD Consultation 2", title: "Eye Checkup & Vision Testing" },
+  { src: "/gp/gp3.jpeg", alt: "OPD Consultation 3", title: "Chest & Respiratory Assessment" },
+  { src: "/gp/gp4.jpeg", alt: "OPD Consultation 4", title: "Maternal & Child Health Checkup" },
+  { src: "/gp/gp5.jpeg", alt: "OPD Consultation 5", title: "Family Planning Counseling" },
 ];
 
 export function GeneralPhysicianSection() {
@@ -83,7 +83,7 @@ export function GeneralPhysicianSection() {
         <div className="space-y-4">
           <h3 className="font-heading text-xl font-bold text-gray-900 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-amber-500" />
-            General Physician Clinic in Action (Live Gallery)
+            OPD Clinic Services in Action
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -178,7 +178,7 @@ export function GeneralPhysicianSection() {
 
               {/* Modal Footer */}
               <div className="p-4 bg-gray-950 text-xs text-gray-400 flex items-center justify-between">
-                <span>Jamila Sultan Welfare Society - General Physician OPD</span>
+                <span>Jamila Sultan Welfare Society - OPD Clinic Services</span>
                 <span className="font-mono">{gpImages[activeIdx].src}</span>
               </div>
             </motion.div>

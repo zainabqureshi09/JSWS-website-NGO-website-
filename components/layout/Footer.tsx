@@ -43,8 +43,8 @@ export function Footer() {
           {/* Brand & Initiatives (Cols: 4) */}
           <div className="lg:col-span-4 space-y-6 text-center sm:text-left">
             <Link href="/" className="inline-block group">
-              <div className="bg-white p-2.5 rounded-2xl inline-block shadow-md group-hover:scale-105 transition-transform duration-300">
-                <img src="/jsws-logo.png" alt="JSWS Logo" className="h-20 sm:h-24 md:h-28 w-auto object-contain" />
+              <div className="bg-white p-3 rounded-2xl inline-block shadow-md group-hover:scale-105 transition-transform duration-300">
+                <img src="/jsws-logo.png" alt="JSWS Logo" className="h-28 sm:h-36 md:h-40 lg:h-44 w-auto object-contain" />
               </div>
             </Link>
 
@@ -163,8 +163,12 @@ export function Footer() {
         {/* Accreditation & Governance Badge Bar */}
         <div className="py-6 border-b border-gray-200 flex flex-wrap items-center justify-between gap-4 text-xs text-gray-600">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
             <span>{t('accreditation')}</span>
+          </div>
+          <div className="flex items-center gap-2 text-teal-800 font-semibold bg-teal-50 px-3 py-1.5 rounded-full border border-teal-200/60">
+            <ShieldCheck className="w-4 h-4 text-teal-600 shrink-0" />
+            <span>{tc('shcc_dental_compliance')}</span>
           </div>
           <div className="flex items-center gap-3 text-gray-900 font-semibold">
             <Award className="w-4 h-4 shrink-0 text-[var(--color-primary)]" />

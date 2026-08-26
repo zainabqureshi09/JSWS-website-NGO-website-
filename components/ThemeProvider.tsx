@@ -42,18 +42,34 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
-
-  // useLayoutEffect runs synchronously before browser paint — prevents flash of wrong theme.
-  useLayoutEffect(() => {
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "system";
+    return (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
+  });
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
     const initial = stored ?? "system";
-    setThemeState(initial);
-    const resolved = initial === "system" ? getSystemTheme() : initial;
-    setResolvedTheme(resolved);
-    applyTheme(initial);
-  }, []);
+    return initial === "system" ? getSystemTheme() : initial;
+  });
+
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+
+  // Listen for OS-level theme changes when using "system"
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => {
+      if (theme === "system") {
+        const resolved = getSystemTheme();
+        setResolvedTheme(resolved);
+        applyTheme("system");
+      }
+    };
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, [theme]);
 
   // Listen for OS-level theme changes when using "system"
   useEffect(() => {

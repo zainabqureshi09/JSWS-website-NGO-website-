@@ -6,17 +6,16 @@ import { Activity, Sparkles, Eye, X, ChevronLeft, ChevronRight, HeartHandshake, 
 import { Card } from "@/components/ui/card";
 
 const ptImages = [
-  { src: "/pt/pt1.jpeg", title: "Physical Therapy Motor Exercises", desc: "Targeted mobility exercises for muscle strengthening and motor rehabilitation." },
-  { src: "/pt/pt2.jpeg", title: "Autism & Pediatric Physical Rehab", desc: "Sensory integration and developmental physical therapy for children." },
-  { src: "/pt/pt3.jpeg", title: "Post-Stroke Rehabilitation", desc: "Specialized gait training and physical rehabilitation for stroke recovery." },
-  { src: "/pt/pt4.jpeg", title: "Occupational & Joint Therapy", desc: "Restoring joint flexibility, posture, and day-to-day functional movement." },
-  { src: "/pt/pt5.jpeg", title: "Cerebral Palsy Physical Therapy", desc: "Compassionate therapy sessions to enhance child motor coordination." },
-  { src: "/pt/pt6.jpeg", title: "Specialized Physical Rehab Clinic", desc: "Certified physiotherapists guiding patient exercises at SARC." },
-  { src: "/pt/pt7.jpeg", title: "Therapeutic Equipment Session", desc: "Utilizing modern rehabilitation equipment for optimal recovery." },
-  { src: "/pt/pt8.jpeg", title: "Neurological Physical Therapy", desc: "Neuromuscular re-education and posture control therapy." },
-  { src: "/pt/pt9.jpeg", title: "Pediatric Sensory Integration", desc: "Interactive physical therapy for neurodiverse & autistic children." },
-  { src: "/pt/pt10.jpeg", title: "Flexibility & Balance Training", desc: "Balance improvement exercises for elderly and trauma recovery patients." },
-  { src: "/pt/pt11.jpeg", title: "Personalized Physical Rehabilitation Plan", desc: "One-on-one session with senior physiotherapist at SARC." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.10 AM.jpeg", title: "Physical Therapy & Motor Rehabilitation", desc: "Targeted physical rehab for muscle recovery and mobility enhancement." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM (1).jpeg", title: "Autism Sensory & Physical Therapy", desc: "Sensory integration therapy tailored for neurodiverse children." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM (2).jpeg", title: "Post-Stroke Mobility Restoration", desc: "Gait training and physical recovery sessions at SARC." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM.jpeg", title: "Occupational & Joint Rehabilitation", desc: "Posture adjustment and day-to-day functional movement therapy." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (1).jpeg", title: "Cerebral Palsy Therapy Session", desc: "Motor coordination and joint flexibility therapy for children." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (2).jpeg", title: "Specialized Pediatric Physical Rehab", desc: "Dedicated rehab room equipped with therapeutic tools at SARC." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (3).jpeg", title: "Therapeutic Equipment & Exercise", desc: "Modern rehabilitation equipment guided by certified therapists." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM.jpeg", title: "Neurological Physical Therapy", desc: "Neuromuscular re-education and balance control sessions." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.13 AM (1).jpeg", title: "Sensory Integration Play Therapy", desc: "Interactive physical exercises encouraging child confidence." },
+  { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.13 AM.jpeg", title: "One-on-One Physiotherapist Care", desc: "Individualized rehabilitation plan with senior therapist at SARC." },
 ];
 
 export function PhysicalTherapySection() {

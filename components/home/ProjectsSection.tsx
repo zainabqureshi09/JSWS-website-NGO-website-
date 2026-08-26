@@ -37,6 +37,7 @@ export function ProjectsSection() {
     {
       id: "amtf",
       logo: "/AMTF_logo.png",
+      secondaryLogo: "/jsmdc-logo.png",
       title: t("amtf.title"),
       services: t.raw("amtf.services") as string[],
       href: "/laboratory",
@@ -46,7 +47,7 @@ export function ProjectsSection() {
     },
     {
       id: "fp",
-      logo: "/jsws-logo.png",
+      logo: "/jsmdc-logo.png",
       title: t("fp.title"),
       services: t.raw("fp.services") as string[],
       href: "/services",
@@ -96,20 +97,38 @@ export function ProjectsSection() {
             <GlassCard key={project.id} className={`group flex h-full flex-col justify-between p-6 sm:p-8 lg:p-10 ${project.lightColor.split(" ")[0]}`}>
               <div>
                 <div className="mb-6 flex items-center justify-between gap-3">
-                  <motion.div
-                    whileHover={{ scale: 1.05, rotate: 2 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className={`flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border p-3 shadow-sm sm:h-28 sm:w-28 bg-white ${project.lightColor.split(" ")[1] ?? "border-gray-200"}`}
-                  >
-                    <Image
-                      src={project.logo}
-                      alt={`${project.title} Logo`}
-                      width={0}
-                      height={0}
-                      sizes="112px"
-                      className="h-full w-full object-contain"
-                    />
-                  </motion.div>
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      whileHover={{ scale: 1.05, rotate: 2 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className={`flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border p-2.5 shadow-sm sm:h-24 sm:w-24 bg-white ${project.lightColor.split(" ")[1] ?? "border-gray-200"}`}
+                    >
+                      <Image
+                        src={project.logo}
+                        alt={`${project.title} Primary Logo`}
+                        width={0}
+                        height={0}
+                        sizes="96px"
+                        className="h-full w-full object-contain"
+                      />
+                    </motion.div>
+                    {project.secondaryLogo && (
+                      <motion.div
+                        whileHover={{ scale: 1.05, rotate: -2 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className={`flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border p-2.5 shadow-sm sm:h-24 sm:w-24 bg-white ${project.lightColor.split(" ")[1] ?? "border-gray-200"}`}
+                      >
+                        <Image
+                          src={project.secondaryLogo}
+                          alt={`${project.title} Secondary Logo`}
+                          width={0}
+                          height={0}
+                          sizes="96px"
+                          className="h-full w-full object-contain"
+                        />
+                      </motion.div>
+                    )}
+                  </div>
                   <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-wide text-gray-700">
                     {project.badge}
                   </span>

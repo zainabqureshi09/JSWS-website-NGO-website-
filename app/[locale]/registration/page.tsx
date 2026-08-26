@@ -21,6 +21,7 @@ import { Card } from "@/components/ui/card";
 import { BidiLTR } from "@/components/ui/BidiLTR";
 import { ShariahCertificateSection } from "@/components/donate/ShariahCertificateSection";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 interface DocModal {
   title: string;
@@ -82,17 +83,17 @@ export default function RegistrationPage() {
     },
     {
       id: "jsmdc-license",
-      badge: "Healthcare Permit",
-      title: "JSMDC & SARC Clinical Operating Permits",
+      badge: "SHCC Healthcare License",
+      title: "JSMDC OPD & Dental X-Ray Clinical License",
       issuer: "Sindh Health Care Commission (SHCC)",
       certNo: "SHCC/JSWS/2017-REV",
       validity: "Annual Renewal Verified",
       image: "/shariah-certificate.png",
-      desc: "Clinical accreditation for OPD, diagnostic laboratory, autism therapy, and general medical care operations.",
+      desc: "Official clinical registration & accreditation for JSMDC General OPD, Dental Care Clinic, Dental X-Ray Facilities, and SARC Therapy Center.",
       highlights: [
-        "Quality Standard Certified Facilities",
-        "Licensed Medical & Surgical OPDs",
-        "Qualified Healthcare Staff Compliance",
+        "Sindh Health Care Commission (SHCC) Registered",
+        "Licensed Dental OPD & Dental X-Ray Compliance",
+        "Qualified Medical & Dental Specialist Oversight",
       ]
     }
   ];
@@ -261,11 +262,11 @@ export default function RegistrationPage() {
             Every rupee donated to Jamila Sultan Welfare Society is accounted for. We maintain open financial statements, independent Shariah audits, and strict compliance with the Directorate of Social Welfare & FBR.
           </p>
           <div className="pt-2">
-            <a href="/donate">
+            <Link href="/donate">
               <Button size="lg" className="rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] text-white px-8 font-bold text-base h-13 shadow-lg shadow-red-600/30">
                 Support Our Verified Welfare Cause
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

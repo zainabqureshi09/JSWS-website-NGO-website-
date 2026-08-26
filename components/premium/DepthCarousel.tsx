@@ -102,8 +102,25 @@ const DepthCarousel = ({
 
   const [active, setActive] = useState(0);
 
-  onChangeRef.current = onChange;
-  cfgRef.current = {
+  useEffect(() => {
+    onChangeRef.current = onChange;
+    cfgRef.current = {
+      count,
+      depth,
+      spread,
+      tilt,
+      tiltDirection,
+      visibleCards,
+      falloff,
+      blur,
+      duration,
+      ease,
+      loop,
+      cardWidth,
+      autoplayDelay,
+    };
+  }, [
+    onChange,
     count,
     depth,
     spread,
@@ -117,7 +134,7 @@ const DepthCarousel = ({
     loop,
     cardWidth,
     autoplayDelay,
-  };
+  ]);
 
   const layout = useCallback((pos: number) => {
     const cfg = cfgRef.current as Record<string, number | string | boolean>;

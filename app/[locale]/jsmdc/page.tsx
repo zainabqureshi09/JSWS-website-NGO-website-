@@ -14,13 +14,19 @@ import {
   MapPin,
   CheckCircle2,
   Calendar,
-  Sparkles
+  Ear,
+  HeartPulse,
+  Eye,
+  Baby,
+  Users,
+  Camera
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BidiLTR } from "@/components/ui/BidiLTR";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+import DomeGallery from "@/components/DomeGallery";
 
 export default function JSMDCPage() {
   const t = useTranslations("JSMDCPage");
@@ -29,9 +35,30 @@ export default function JSMDCPage() {
     { title: t("departments.items.opd.title"), icon: Stethoscope, desc: t("departments.items.opd.desc"), timing: t("departments.items.opd.timing") },
     { title: t("departments.items.dental.title"), icon: Activity, desc: t("departments.items.dental.desc"), timing: t("departments.items.dental.timing") },
     { title: t("departments.items.gynecology.title"), icon: Heart, desc: t("departments.items.gynecology.desc"), timing: t("departments.items.gynecology.timing") },
-    { title: t("departments.items.pediatric.title"), icon: Hospital, desc: t("departments.items.pediatric.desc"), timing: t("departments.items.pediatric.timing") },
+    { title: t("departments.items.ent.title"), icon: Ear, desc: t("departments.items.ent.desc"), timing: t("departments.items.ent.timing") },
+    { title: t("departments.items.chest.title"), icon: HeartPulse, desc: t("departments.items.chest.desc"), timing: t("departments.items.chest.timing") },
+    { title: t("departments.items.eye.title"), icon: Eye, desc: t("departments.items.eye.desc"), timing: t("departments.items.eye.timing") },
+    { title: t("departments.items.mother_and_child.title"), icon: Baby, desc: t("departments.items.mother_and_child.desc"), timing: t("departments.items.mother_and_child.timing") },
+    { title: t("departments.items.family_planning.title"), icon: Users, desc: t("departments.items.family_planning.desc"), timing: t("departments.items.family_planning.timing") },
     { title: t("departments.items.pharmacy.title"), icon: Pill, desc: t("departments.items.pharmacy.desc"), timing: t("departments.items.pharmacy.timing") },
     { title: t("departments.items.diagnostic.title"), icon: ShieldCheck, desc: t("departments.items.diagnostic.desc"), timing: t("departments.items.diagnostic.timing") },
+  ];
+
+  const docImages = [
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.24 PM (1).jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.24 PM.jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.25 PM (1).jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.25 PM (2).jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.25 PM.jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.27 PM.jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.29 PM (1).jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.29 PM (2).jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.29 PM.jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.32 PM (1).jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.32 PM.jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.33 PM.jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.34 PM (1).jpeg" },
+    { src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.34 PM.jpeg" },
   ];
 
   return (
@@ -66,6 +93,17 @@ export default function JSMDCPage() {
             <p className="text-gray-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               {t("hero.desc")}
             </p>
+
+            <div className="pt-1 flex flex-wrap items-center justify-center gap-2.5 text-xs font-semibold text-teal-200">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-teal-900/90 border border-teal-500/40 text-teal-300 shadow-sm">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Sindh Health Care Commission (SHCC) Registered & Compliant</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-teal-900/90 border border-teal-500/40 text-teal-300 shadow-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Licensed Dental Services & Dental X-Ray Facility</span>
+              </span>
+            </div>
 
             <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
               <Link href="/contact">
@@ -130,39 +168,41 @@ export default function JSMDCPage() {
             })}
           </div>
 
-          {/* General Physician OPD Photo Showcase */}
-          <div className="mt-16 pt-12 border-t border-gray-100 space-y-6">
-            <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="px-3.5 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-bold">
-                {t("gallery.badge")}
+          {/* JSMDC 3D Dome Gallery Interactive Showcase */}
+          <div className="mt-20 pt-16 border-t border-gray-100 space-y-8">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-teal-100 text-teal-800 text-xs font-extrabold tracking-wide uppercase">
+                <Camera className="w-3.5 h-3.5" />
+                <span>Interactive OPD Clinical Dome Showcase</span>
               </span>
-              <h3 className="font-heading text-2xl font-bold text-gray-900">
-                {t("gallery.title")}
+              <h3 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900">
+                Medical Center Gallery
               </h3>
-              <p className="text-xs sm:text-base text-gray-600">
-                {t("gallery.desc")}
+              <p className="text-sm sm:text-base text-gray-600">
+                Drag, rotate, and click images to view doctor consultations and healthcare facilities at Jamila Sultan Medical & Dental Center.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-              {[
-                { src: "/gp/gp1.jpeg", label: t("gallery.images.1") },
-                { src: "/gp/gp2.jpeg", label: t("gallery.images.2") },
-                { src: "/gp/gp3.jpeg", label: t("gallery.images.3") },
-                { src: "/gp/gp4.jpeg", label: t("gallery.images.4") },
-                { src: "/gp/gp5.jpeg", label: t("gallery.images.5") },
-              ].map((img, index) => (
-                <div key={index} className="group relative rounded-2xl overflow-hidden shadow-md border border-gray-200 bg-gray-900 h-48">
-                  <img src={img.src} alt={img.label} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-80 p-3 flex items-end">
-                    <p className="text-xs font-bold text-white leading-tight">{img.label}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="relative w-full h-[550px] sm:h-[650px] lg:h-[700px] rounded-3xl overflow-hidden shadow-xl border border-teal-100 bg-gradient-to-b from-teal-50/70 via-white to-teal-50/40">
+              <DomeGallery
+                images={docImages}
+                grayscale={false}
+                fit={0.65}
+                fitBasis="auto"
+                minRadius={500}
+                maxRadius={800}
+                overlayBlurColor="#f0fdfa"
+                openedImageWidth="360px"
+                openedImageHeight="360px"
+                imageBorderRadius="24px"
+                openedImageBorderRadius="28px"
+              />
             </div>
           </div>
         </div>
       </section>
+
+      {/* Free Medicine & Zakat Impact */}
 
       {/* Free Medicine & Zakat Impact */}
       <section className="py-16 bg-teal-900 text-white">
@@ -224,3 +264,4 @@ export default function JSMDCPage() {
     </div>
   );
 }
+

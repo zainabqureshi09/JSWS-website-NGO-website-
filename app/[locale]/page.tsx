@@ -17,7 +17,9 @@ export default function Home() {
       <ServicesSection />
       <FutureProject />
       <AboutSection />
-      <StatsSection />
+      <div id="impact-stats">
+        <StatsSection />
+      </div>
       <WhyChooseUs />
       <GalleryHighlights />
       <HealthAwareness />

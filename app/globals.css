@@ -62,3 +62,34 @@ body {
 .premium-cursor-active select {
   cursor: none !important;
 }
+
+/* Global Text Animations & Typography Effects */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, text-shadow 0.3s ease, letter-spacing 0.3s ease;
+}
+
+h1:hover, h2:hover, h3:hover {
+  text-shadow: 0 4px 20px rgba(181, 18, 27, 0.14);
+}
+
+.text-gradient-shimmer {
+  background: linear-gradient(110deg, #111111 30%, #b5121b 50%, #111111 70%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 4s ease-in-out infinite;
+}
+
+@keyframes textShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.text-hover-lift {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+}
+
+.text-hover-lift:hover {
+  transform: translateY(-2px) scale(1.01);
+}

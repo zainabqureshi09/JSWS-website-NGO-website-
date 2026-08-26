@@ -33,6 +33,12 @@ export default function LaboratoryPage() {
  transition={{ duration: 0.8 }}
  className="w-full md:w-1/2 space-y-6"
  >
+          <div className="inline-flex items-center gap-3 p-2 px-4 bg-white rounded-2xl border border-gray-200 shadow-sm w-fit mb-2">
+            <img src="/AMTF_logo.png" alt="AMTF Logo" className="h-10 w-auto object-contain" />
+            <span className="text-gray-400 font-bold text-sm">+</span>
+            <img src="/jsmdc-logo.png" alt="JSMDC Logo" className="h-10 w-auto object-contain" />
+            <span className="text-xs font-bold text-gray-700 pl-2 border-l border-gray-200 hidden sm:inline">Joint AMTF & JSMDC Diagnostic Partnership</span>
+          </div>
  <h1 className="font-heading text-5xl md:text-6xl font-bold text-[var(--color-black)] leading-tight">
  {t('hero_title_start')} <span className="text-[var(--color-primary)]">{t('hero_title_highlight')}</span>
  </h1>

@@ -39,19 +39,22 @@
   },
   "Hero": {
     "badge": "Jamila Sultan Welfare Society",
-    "badge_official": "Registered Since 2016 • Serving with Integrity",
+    "badge_official": "Creating Healthier Communities Since 2017 • Registered NGO KAR No. 214",
+    "credibility_line": "Creating Healthier Communities Since 2017 • Registered NGO KAR No. 214",
     "title_start": "Free & Subsidized",
     "title_highlight": "Healthcare",
     "title_end": "for Deserving Patients",
-    "description": "From free medical consultations and life-saving medicines to physical rehabilitation and education scholarships — JSWS stands as a beacon of hope for underserved communities across Karachi, treating every patient with the dignity they deserve.",
+    "description": "From free medical consultations and life-saving medicines to specialized dental, maternal care, and physical rehabilitation — JSWS stands as a beacon of hope, treating every patient with dignity and professional excellence.",
+    "explore_impact": "Explore Our Impact",
+    "get_involved": "Get Involved",
     "book_appointment": "Book Free Appointment",
     "donate_now": "Donate Now",
     "become_volunteer": "Become Volunteer",
     "cards": {
       "medicines": "100% Free Pharmacy",
-      "healthcare": "Expert Medical Care",
-      "eye": "Vision & Eye Surgery",
-      "dental": "Rehab & Physical Therapy"
+      "healthcare": "Expert OPD Medical Care",
+      "eye": "Vision & Eye Care",
+      "dental": "Dental & SHCC X-Ray"
     }
   },
   "AboutSection": {
@@ -104,10 +107,17 @@
     }
   },
   "StatsSection": {
+    "badge": "Proven Scale & Impact",
+    "title": "Transforming Healthcare Access at Scale",
+    "desc": "Real healthcare metrics reflecting over a decade of compassionate OPD care, free medical camps, and diagnostic services across Sindh.",
     "patients": "Patients Served",
-    "camps": "Medical Camps",
+    "patients_desc": "Free & subsidized consultations across general OPD, dental, and specialty clinics.",
+    "camps": "Free Medical Camps",
+    "camps_desc": "Mobile health drives organized in underserved urban and rural communities.",
     "tests": "Diagnostic Tests",
-    "volunteers": "Active Volunteers"
+    "tests_desc": "Accurate laboratory, ultrasound, and radiologic screenings provided.",
+    "volunteers": "Active Volunteers",
+    "volunteers_desc": "Dedicated doctors, healthcare workers, and community partners."
   },
   "WhyChooseUs": {
     "badge": "Why Choose Us",
@@ -464,7 +474,8 @@
     "programs_initiatives": "Programs & Initiatives",
     "donate_zakat": "Donate & Zakat",
     "registration_credentials": "Registration Credentials",
-    "registration_no": "Registration No: KAR No. 214 of 2016-17"
+    "registration_no": "Registration No: KAR No. 214 of 2016-17",
+    "shcc_dental_compliance": "Dental X-ray, Dental Services, JSMDC (Sindh Healthcare Compliance)"
   },
   "JSMDCPage": {
     "hero": {
@@ -484,8 +495,8 @@
           "timing": "Monday to Saturday"
         },
         "dental": {
-          "title": "Dental Care Clinic",
-          "desc": "Dental cleanings, extractions, fillings, root canals, and oral hygiene education.",
+          "title": "Dental Care & Dental X-Ray Clinic",
+          "desc": "Full dental cleanings, extractions, fillings, root canals, dental X-ray imaging, and oral surgery — fully registered & compliant with Sindh Health Care Commission (SHCC).",
           "timing": "Monday to Saturday"
         },
         "gynecology": {
@@ -493,9 +504,29 @@
           "desc": "Prenatal care, postnatal checkups, routine screening, and women's health counseling.",
           "timing": "Monday to Saturday"
         },
-        "pediatric": {
-          "title": "Pediatric Health Care",
-          "desc": "Specialized medical attention for children, infant checkups, and nutritional guidance.",
+        "ent": {
+          "title": "ENT Clinic",
+          "desc": "Comprehensive ear, nose, and throat care including hearing tests, sinus treatment, and surgical procedures.",
+          "timing": "Monday to Saturday"
+        },
+        "chest": {
+          "title": "Chest Clinic",
+          "desc": "Specialized respiratory care for asthma, COPD, tuberculosis, and other pulmonary conditions.",
+          "timing": "Monday to Saturday"
+        },
+        "eye": {
+          "title": "Eye Clinic",
+          "desc": "Complete ophthalmology services including vision testing, cataract screening, and eye surgery.",
+          "timing": "Monday to Saturday"
+        },
+        "mother_and_child": {
+          "title": "Mother & Child Clinic",
+          "desc": "Comprehensive maternal and pediatric healthcare including antenatal care, immunizations, and child wellness checkups.",
+          "timing": "Monday to Saturday"
+        },
+        "family_planning": {
+          "title": "Family Planning Clinic",
+          "desc": "Counseling and services for family planning, reproductive health, and maternal wellness.",
           "timing": "Monday to Saturday"
         },
         "pharmacy": {
@@ -512,14 +543,14 @@
     },
     "gallery": {
       "badge": "JSMDC OPD Facilities",
-      "title": "General Physician Clinic in Action",
-      "desc": "Real photos from our General Physician consultation OPD rooms at JSMDC.",
+      "title": "OPD Clinic Services in Action",
+      "desc": "Real photos from our multi-specialty OPD consultation rooms at JSMDC.",
       "images": {
-        "1": "GP Consultation Room 1",
-        "2": "Patient Examination & Care",
-        "3": "General Physician OPD",
-        "4": "Prescription & Guidance",
-        "5": "Subsidized Clinic",
+        "1": "ENT Consultation Room",
+        "2": "Eye Checkup & Vision Testing",
+        "3": "Chest & Respiratory Assessment",
+        "4": "Maternal & Child Health Checkup",
+        "5": "Family Planning Counseling",
         "6": "100% Free Medicines"
       }
     },
