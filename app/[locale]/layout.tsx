@@ -56,6 +56,9 @@ export default async function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${notoUrdu.variable} h-full antialiased light`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="preload" as="image" href="/hero.jpg" fetchPriority="high" />
+      </head>
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>

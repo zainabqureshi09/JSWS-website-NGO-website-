@@ -30,6 +30,14 @@ export function Hero() {
   const magneticBtnsRef = useRef<(HTMLDivElement | null)[]>([]);
   const highlightCardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
+  const [loadVideo, setLoadVideo] = useState(false);
+
+  useEffect(() => {
+    // Defer heavy 154MB MP4 video load to eliminate LCP resource load delay
+    const timer = setTimeout(() => setLoadVideo(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
+
   const highlightCards = [
     { icon: Pill, text: t("cards.medicines"), badge: "100% Free" },
     { icon: HeartPulse, text: t("cards.healthcare"), badge: "General OPD" },
@@ -181,20 +189,31 @@ export function Hero() {
           }}
         />
 
-        {/* Video Background with Gradient Overlays */}
+        {/* Video & LCP Poster Background with Gradient Overlays */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <video
-            className="hero-video-bg h-full w-full scale-105 object-cover opacity-[0.92] transition-transform duration-700"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/hero.jpg"
-            aria-hidden="true"
-          >
-            <source src="/jsws-tour.mp4" type="video/mp4" />
-          </video>
+          {/* LCP Optimized Poster Image */}
+          <img
+            src="/hero.jpg"
+            alt="JSWS Healthcare"
+            fetchPriority="high"
+            loading="eager"
+            className="absolute inset-0 h-full w-full object-cover opacity-95 transition-opacity duration-700"
+          />
+
+          {loadVideo && (
+            <video
+              className="hero-video-bg absolute inset-0 h-full w-full scale-105 object-cover opacity-[0.92] transition-transform duration-700"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="/hero.jpg"
+              aria-hidden="true"
+            >
+              <source src="/jsws-tour.mp4" type="video/mp4" />
+            </video>
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-gray-950/85 via-gray-950/45 to-gray-950/20" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(225,29,72,0.25),transparent_65%)]" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-gray-950 to-transparent" />
