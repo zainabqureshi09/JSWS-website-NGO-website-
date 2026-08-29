@@ -136,9 +136,33 @@ export function StatsSection() {
           });
         }
 
-        // Mouse Hover & Tilt Interactions
+        // Mouse Hover & Tilt Interactions - Caching rect on enter to prevent layout thrashing
+        let cachedRect: DOMRect | null = null;
+
+        const handleMouseEnter = () => {
+          cachedRect = card.getBoundingClientRect();
+          if (iconEl) {
+            gsap.to(iconEl, {
+              scale: 1.2,
+              rotate: 6,
+              duration: 0.4,
+              ease: "elastic.out(1.2, 0.4)",
+            });
+          }
+          if (shineEl) {
+            gsap.fromTo(
+              shineEl,
+              { x: "-100%" },
+              { x: "200%", duration: 0.85, ease: "power2.inOut" }
+            );
+          }
+        };
+
         const handleMouseMove = (e: MouseEvent) => {
-          const rect = card.getBoundingClientRect();
+          if (!cachedRect) {
+            cachedRect = card.getBoundingClientRect();
+          }
+          const rect = cachedRect;
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
 
@@ -158,25 +182,8 @@ export function StatsSection() {
           });
         };
 
-        const handleMouseEnter = () => {
-          if (iconEl) {
-            gsap.to(iconEl, {
-              scale: 1.2,
-              rotate: 6,
-              duration: 0.4,
-              ease: "elastic.out(1.2, 0.4)",
-            });
-          }
-          if (shineEl) {
-            gsap.fromTo(
-              shineEl,
-              { x: "-100%" },
-              { x: "200%", duration: 0.85, ease: "power2.inOut" }
-            );
-          }
-        };
-
         const handleMouseLeave = () => {
+          cachedRect = null;
           gsap.to(card, {
             rotateX: 0,
             rotateY: 0,

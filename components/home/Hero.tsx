@@ -89,13 +89,19 @@ export function Hero() {
             "-=0.3"
           );
 
-        // Magnetic Buttons Hover Interaction
+        // Magnetic Buttons Hover Interaction with cached rects
         magneticBtnsRef.current.forEach((btn) => {
           if (!btn) return;
+          let btnRect: DOMRect | null = null;
+
+          const handleMouseEnter = () => {
+            btnRect = btn.getBoundingClientRect();
+          };
+
           const handleMouseMove = (e: MouseEvent) => {
-            const rect = btn.getBoundingClientRect();
-            const relX = e.clientX - (rect.left + rect.width / 2);
-            const relY = e.clientY - (rect.top + rect.height / 2);
+            if (!btnRect) btnRect = btn.getBoundingClientRect();
+            const relX = e.clientX - (btnRect.left + btnRect.width / 2);
+            const relY = e.clientY - (btnRect.top + btnRect.height / 2);
 
             gsap.to(btn, {
               x: relX * 0.35,
@@ -106,6 +112,7 @@ export function Hero() {
           };
 
           const handleMouseLeave = () => {
+            btnRect = null;
             gsap.to(btn, {
               x: 0,
               y: 0,
@@ -114,22 +121,36 @@ export function Hero() {
             });
           };
 
+          btn.addEventListener("mouseenter", handleMouseEnter);
           btn.addEventListener("mousemove", handleMouseMove);
           btn.addEventListener("mouseleave", handleMouseLeave);
         });
 
-        // Hero Spotlight Track
+        // Hero Spotlight Track with cached rect
+        let heroRect: DOMRect | null = null;
+        const handleHeroMouseEnter = () => {
+          if (heroRef.current) heroRect = heroRef.current.getBoundingClientRect();
+        };
+
         const handleHeroMouseMove = (e: MouseEvent) => {
-          const rect = heroRef.current?.getBoundingClientRect();
-          if (!rect) return;
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
+          if (!heroRect && heroRef.current) {
+            heroRect = heroRef.current.getBoundingClientRect();
+          }
+          if (!heroRect) return;
+          const x = e.clientX - heroRect.left;
+          const y = e.clientY - heroRect.top;
 
           heroRef.current?.style.setProperty("--hero-x", `${x}px`);
           heroRef.current?.style.setProperty("--hero-y", `${y}px`);
         };
 
+        const handleHeroMouseLeave = () => {
+          heroRect = null;
+        };
+
+        heroRef.current?.addEventListener("mouseenter", handleHeroMouseEnter);
         heroRef.current?.addEventListener("mousemove", handleHeroMouseMove);
+        heroRef.current?.addEventListener("mouseleave", handleHeroMouseLeave);
       }, heroRef);
 
       return () => ctx.revert();

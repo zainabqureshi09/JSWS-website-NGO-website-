@@ -415,7 +415,6 @@ export default function DomeGallery({
       }
       overlay.remove();
       rootRef.current?.appendChild(animatingOverlay);
-      void animatingOverlay.getBoundingClientRect();
       requestAnimationFrame(() => {
         animatingOverlay.style.left = originalPosRelativeToRoot.left + 'px';
         animatingOverlay.style.top = originalPosRelativeToRoot.top + 'px';
@@ -493,8 +492,6 @@ export default function DomeGallery({
       refDiv.style.transform = `rotateX(${-parentRot.rotateX}deg) rotateY(${-parentRot.rotateY}deg)`;
       parent.appendChild(refDiv);
 
-      void refDiv.offsetHeight;
-
       const tileR = refDiv.getBoundingClientRect();
       const mainR = mainRef.current?.getBoundingClientRect();
       const frameR = frameRef.current?.getBoundingClientRect();
@@ -558,11 +555,10 @@ export default function DomeGallery({
           const newRect = overlay.getBoundingClientRect();
           overlay.style.width = frameR.width + 'px';
           overlay.style.height = frameR.height + 'px';
-          void overlay.offsetWidth;
-          overlay.style.transition = `left ${enlargeTransitionMs}ms ease, top ${enlargeTransitionMs}ms ease, width ${enlargeTransitionMs}ms ease, height ${enlargeTransitionMs}ms ease`;
           const centeredLeft = frameR.left - mainR.left + (frameR.width - newRect.width) / 2;
           const centeredTop = frameR.top - mainR.top + (frameR.height - newRect.height) / 2;
           requestAnimationFrame(() => {
+            overlay.style.transition = `left ${enlargeTransitionMs}ms ease, top ${enlargeTransitionMs}ms ease, width ${enlargeTransitionMs}ms ease, height ${enlargeTransitionMs}ms ease`;
             overlay.style.left = `${centeredLeft}px`;
             overlay.style.top = `${centeredTop}px`;
             overlay.style.width = tempWidth;
