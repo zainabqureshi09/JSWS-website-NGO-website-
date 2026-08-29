@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { MapPin, Navigation, Phone, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { BidiLTR } from "@/components/ui/BidiLTR";
@@ -9,13 +10,31 @@ import { ScrollReveal } from "@/components/premium/ScrollReveal";
 
 export function MapSection() {
   const t = useTranslations("MapSection");
+  const [loadMap, setLoadMap] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const mapUrl =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1039.8440892593023!2d67.10633747156312!3d24.82972324288454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33b0035889a3d%3A0xd69d9f14ede186d8!2sJamila%20Sultan%20Welfare%20Society%20Clinics!5e0!3m2!1sen!2s!4v1785306962876!5m2!1sen!2s";
   const directDirectionsUrl =
     "https://maps.google.com/?q=Jamila+Sultan+Welfare+Society+Clinics+Karachi";
 
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadMap(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative overflow-hidden border-t border-gray-100 py-12 sm:py-16 md:py-24">
+    <section ref={containerRef} className="relative overflow-hidden border-t border-gray-100 py-12 sm:py-16 md:py-24">
       <PremiumBackground variant="light" showParticles={false} />
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
@@ -66,14 +85,23 @@ export function MapSection() {
             </div>
 
             <div className="relative min-h-[300px] w-full bg-gray-800 sm:min-h-[380px] lg:min-h-[450px] lg:w-2/3">
-              <iframe
-                src={mapUrl}
-                className="h-full min-h-[300px] w-full border-0 sm:min-h-[380px] lg:min-h-[450px]"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                title="Jamila Sultan Welfare Society Clinics Google Map"
-              />
+              {loadMap ? (
+                <iframe
+                  src={mapUrl}
+                  className="h-full min-h-[300px] w-full border-0 sm:min-h-[380px] lg:min-h-[450px]"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Jamila Sultan Welfare Society Clinics Google Map"
+                />
+              ) : (
+                <div className="flex h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[450px] w-full items-center justify-center bg-gray-900 text-gray-400">
+                  <div className="flex flex-col items-center gap-2">
+                    <MapPin className="h-8 w-8 text-red-500 animate-pulse" />
+                    <span className="text-sm font-medium text-gray-400">Loading Map...</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </ScrollReveal>

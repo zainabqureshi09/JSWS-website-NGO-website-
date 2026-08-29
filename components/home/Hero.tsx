@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { gsap } from "gsap";
@@ -33,8 +34,8 @@ export function Hero() {
   const [loadVideo, setLoadVideo] = useState(false);
 
   useEffect(() => {
-    // Defer heavy 154MB MP4 video load to eliminate LCP resource load delay
-    const timer = setTimeout(() => setLoadVideo(true), 300);
+    // Defer heavy video load to eliminate LCP resource load delay
+    const timer = setTimeout(() => setLoadVideo(true), 800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -51,117 +52,90 @@ export function Hero() {
     if (typeof window === "undefined" || !heroRef.current) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion) return;
+    const rafId = requestAnimationFrame(() => {
+      const ctx = gsap.context(() => {
+        // Hero Elements Entrance Timeline - deferred until after initial paint
+        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      // Hero Elements Entrance Timeline
-      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        tl.fromTo(
+          ".hero-badge",
+          { opacity: 0, y: -15, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.7, delay: 0.05 }
+        )
+          .fromTo(
+            ".hero-title-line",
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 },
+            "-=0.4"
+          )
+          .fromTo(
+            ".hero-desc",
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.7 },
+            "-=0.5"
+          )
+          .fromTo(
+            ".hero-cta-wrap",
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.6 },
+            "-=0.4"
+          )
+          .fromTo(
+            highlightCardsRef.current,
+            { opacity: 0, y: 25, scale: 0.96 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" },
+            "-=0.3"
+          );
 
-      tl.fromTo(
-        ".hero-badge",
-        { opacity: 0, y: -20, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8, delay: 0.1 }
-      )
-        .fromTo(
-          ".hero-title-line",
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 1, stagger: 0.15 },
-          "-=0.5"
-        )
-        .fromTo(
-          ".hero-cursor",
-          { opacity: 0, scaleY: 0 },
-          { opacity: 1, scaleY: 1, duration: 0.5 },
-          "-=0.3"
-        )
-        .fromTo(
-          ".hero-desc",
-          { opacity: 0, y: 25 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          "-=0.6"
-        )
-        .fromTo(
-          ".hero-cta-wrap",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          "-=0.5"
-        )
-        .fromTo(
-          highlightCardsRef.current,
-          { opacity: 0, y: 35, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" },
-          "-=0.4"
-        );
+        // Magnetic Buttons Hover Interaction
+        magneticBtnsRef.current.forEach((btn) => {
+          if (!btn) return;
+          const handleMouseMove = (e: MouseEvent) => {
+            const rect = btn.getBoundingClientRect();
+            const relX = e.clientX - (rect.left + rect.width / 2);
+            const relY = e.clientY - (rect.top + rect.height / 2);
 
-      // Continuous subtle floating motion on impact cards
-      highlightCardsRef.current.forEach((card, i) => {
-        if (!card) return;
-        gsap.to(card, {
-          y: "-=6",
-          duration: 2.2 + i * 0.4,
-          yoyo: true,
-          repeat: -1,
-          ease: "sine.inOut",
-          delay: i * 0.2,
+            gsap.to(btn, {
+              x: relX * 0.35,
+              y: relY * 0.35,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          };
+
+          const handleMouseLeave = () => {
+            gsap.to(btn, {
+              x: 0,
+              y: 0,
+              duration: 0.6,
+              ease: "elastic.out(1.1, 0.4)",
+            });
+          };
+
+          btn.addEventListener("mousemove", handleMouseMove);
+          btn.addEventListener("mouseleave", handleMouseLeave);
         });
-      });
 
-      // Magnetic Buttons Hover Interaction
-      magneticBtnsRef.current.forEach((btn) => {
-        if (!btn) return;
-        const handleMouseMove = (e: MouseEvent) => {
-          const rect = btn.getBoundingClientRect();
-          const relX = e.clientX - (rect.left + rect.width / 2);
-          const relY = e.clientY - (rect.top + rect.height / 2);
+        // Hero Spotlight Track
+        const handleHeroMouseMove = (e: MouseEvent) => {
+          const rect = heroRef.current?.getBoundingClientRect();
+          if (!rect) return;
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
 
-          gsap.to(btn, {
-            x: relX * 0.35,
-            y: relY * 0.35,
-            duration: 0.3,
-            ease: "power2.out",
-          });
+          heroRef.current?.style.setProperty("--hero-x", `${x}px`);
+          heroRef.current?.style.setProperty("--hero-y", `${y}px`);
         };
 
-        const handleMouseLeave = () => {
-          gsap.to(btn, {
-            x: 0,
-            y: 0,
-            duration: 0.6,
-            ease: "elastic.out(1.1, 0.4)",
-          });
-        };
+        heroRef.current?.addEventListener("mousemove", handleHeroMouseMove);
+      }, heroRef);
 
-        btn.addEventListener("mousemove", handleMouseMove);
-        btn.addEventListener("mouseleave", handleMouseLeave);
-      });
+      return () => ctx.revert();
+    });
 
-      // Hero Spotlight & Parallax Background Cursor Track
-      const handleHeroMouseMove = (e: MouseEvent) => {
-        const rect = heroRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        heroRef.current?.style.setProperty("--hero-x", `${x}px`);
-        heroRef.current?.style.setProperty("--hero-y", `${y}px`);
-
-        // Subtle background video parallax
-        const moveX = (e.clientX / window.innerWidth - 0.5) * 15;
-        const moveY = (e.clientY / window.innerHeight - 0.5) * 15;
-
-        gsap.to(".hero-video-bg", {
-          x: moveX,
-          y: moveY,
-          duration: 0.8,
-          ease: "power1.out",
-        });
-      };
-
-      heroRef.current?.addEventListener("mousemove", handleHeroMouseMove);
-    }, heroRef);
-
-    return () => ctx.revert();
+    return () => cancelAnimationFrame(rafId);
   }, [t]);
 
   const scrollToStats = () => {
@@ -191,13 +165,15 @@ export function Hero() {
 
         {/* Video & LCP Poster Background with Gradient Overlays */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          {/* LCP Optimized Poster Image */}
-          <img
+          {/* LCP Optimized Poster Image using Next.js Image */}
+          <Image
             src="/hero.jpg"
             alt="JSWS Healthcare"
-            fetchPriority="high"
-            loading="eager"
-            className="absolute inset-0 h-full w-full object-cover opacity-95 transition-opacity duration-700"
+            priority
+            sizes="100vw"
+            fill
+            quality={85}
+            className="object-cover opacity-95 transition-opacity duration-700 pointer-events-none"
           />
 
           {loadVideo && (
@@ -207,7 +183,7 @@ export function Hero() {
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               poster="/hero.jpg"
               aria-hidden="true"
             >

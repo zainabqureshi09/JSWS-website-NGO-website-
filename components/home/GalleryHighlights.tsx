@@ -1,12 +1,24 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { Camera } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { PremiumBackground } from "@/components/premium/PremiumBackground";
 import { ScrollReveal } from "@/components/premium/ScrollReveal";
-import DomeGallery from "@/components/DomeGallery";
+
+const DomeGallery = dynamic(() => import("@/components/DomeGallery"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full items-center justify-center bg-gray-50 text-gray-400">
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-red-600 border-t-transparent" />
+        <span className="text-sm font-medium text-gray-500">Loading Interactive 3D Gallery...</span>
+      </div>
+    </div>
+  ),
+});
 
 const allPublicImages = [
   // Rehab photos in public root
