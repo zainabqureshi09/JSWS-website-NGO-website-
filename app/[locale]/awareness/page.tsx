@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { 
   Megaphone, 
@@ -29,9 +30,14 @@ export default function AwarenessPage() {
       {/* Hero Banner */}
       <section className="relative py-24 bg-rose-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2670&auto=format&fit=crop"
+          <Image
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop"
             alt="Health awareness camp"
+            width={1600}
+            height={900}
+            priority
+            sizes="100vw"
+            quality={80}
             className="w-full h-full object-cover opacity-20"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-rose-950 via-rose-950/80 to-transparent" />

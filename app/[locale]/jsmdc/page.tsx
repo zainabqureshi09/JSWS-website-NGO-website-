@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { 
   Stethoscope, 
@@ -26,7 +28,18 @@ import { Card } from "@/components/ui/card";
 import { BidiLTR } from "@/components/ui/BidiLTR";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import DomeGallery from "@/components/DomeGallery";
+
+const DomeGallery = dynamic(() => import("@/components/DomeGallery"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full items-center justify-center bg-teal-950 text-teal-300">
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-teal-500 border-t-transparent" />
+        <span className="text-sm font-medium">Loading Medical Gallery...</span>
+      </div>
+    </div>
+  ),
+});
 
 export default function JSMDCPage() {
   const t = useTranslations("JSMDCPage");
@@ -66,9 +79,14 @@ export default function JSMDCPage() {
       {/* Hero Banner */}
       <section className="relative py-24 bg-teal-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src="/hero.jpg"
             alt="JSMDC Medical Center"
+            width={1600}
+            height={900}
+            priority
+            sizes="100vw"
+            quality={80}
             className="w-full h-full object-cover opacity-25"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/80 to-transparent" />

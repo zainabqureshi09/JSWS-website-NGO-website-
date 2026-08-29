@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { CheckCircle2 } from "lucide-react";
 import { GlassCard } from "@/components/premium/GlassCard";
@@ -26,14 +27,24 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <ScrollReveal variant="slide-left" className="relative order-2 pb-6 lg:order-1">
             <div className="relative z-10 grid grid-cols-2 gap-4">
-              <img
-                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2670&auto=format&fit=crop"
+              <Image
+                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1200&auto=format&fit=crop"
                 alt="Medical facilities"
+                width={600}
+                height={400}
+                sizes="(max-width: 768px) 50vw, 30vw"
+                loading="lazy"
+                quality={80}
                 className="h-64 w-full rounded-3xl border-2 border-gray-100 object-cover shadow-xl sm:h-72"
               />
-              <img
-                src="https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=2574&auto=format&fit=crop"
+              <Image
+                src="https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop"
                 alt="Healthcare professionals"
+                width={600}
+                height={400}
+                sizes="(max-width: 768px) 50vw, 30vw"
+                loading="lazy"
+                quality={80}
                 className="mt-8 h-64 w-full rounded-3xl border-2 border-gray-100 object-cover shadow-xl sm:mt-10 sm:h-80"
               />
             </div>

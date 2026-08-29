@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { 
   Activity, 
@@ -21,7 +23,17 @@ import { Link } from "@/i18n/routing";
 
 import { PhysicalTherapySection } from "@/components/services/PhysicalTherapySection";
 
-import DomeGallery from "@/components/DomeGallery";
+const DomeGallery = dynamic(() => import("@/components/DomeGallery"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full items-center justify-center bg-gray-950 text-indigo-300">
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
+        <span className="text-sm font-medium">Loading SARC 3D Gallery...</span>
+      </div>
+    </div>
+  ),
+});
 
 const sarcDomeImages = [
   { src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.10 AM.jpeg", alt: "Physical Therapy SARC" },
@@ -49,9 +61,14 @@ export default function SARCPage() {
       {/* Hero Banner */}
       <section className="relative py-24 bg-indigo-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=2670&auto=format&fit=crop"
+          <Image
+            src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=1600&auto=format&fit=crop"
             alt="Child therapy and rehab"
+            width={1600}
+            height={900}
+            priority
+            sizes="100vw"
+            quality={80}
             className="w-full h-full object-cover opacity-25"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-indigo-950 via-indigo-950/80 to-transparent" />

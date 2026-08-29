@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { 
   Building2, 
@@ -143,9 +144,12 @@ Website: https://jsws.org.pk
               className="overflow-hidden bg-red-50/60 rounded-2xl p-6 border border-red-100 flex flex-col md:flex-row items-center gap-6"
             >
               <div className="w-48 sm:w-56 h-auto bg-white p-3 rounded-2xl shadow-md border border-gray-200 shrink-0 text-center space-y-2">
-                <img
+                <Image
                   src="/bankislami-qr.svg"
                   alt="BankIslami Official QR Code"
+                  width={200}
+                  height={200}
+                  loading="lazy"
                   className="w-full h-auto rounded-xl shadow-inner"
                 />
                 <button

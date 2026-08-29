@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Stethoscope, CheckCircle2, Eye, Calendar, Sparkles, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -99,9 +100,14 @@ export function GeneralPhysicianSection() {
                   onClick={() => setActiveIdx(idx)}
                   className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-900 cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 h-64"
                 >
-                  <img
+                  <Image
                     src={img.src}
                     alt={img.alt}
+                    width={400}
+                    height={300}
+                    sizes="(max-width: 768px) 100vw, 20vw"
+                    loading="lazy"
+                    quality={80}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity p-4 flex flex-col justify-end text-white">
@@ -153,9 +159,12 @@ export function GeneralPhysicianSection() {
 
               {/* Image View with Next/Prev Controls */}
               <div className="relative overflow-hidden p-4 bg-black flex items-center justify-center min-h-[50vh]">
-                <img
+                <Image
                   src={gpImages[activeIdx].src}
                   alt={gpImages[activeIdx].alt}
+                  width={800}
+                  height={600}
+                  quality={85}
                   className="max-w-full max-h-[70vh] object-contain rounded-xl shadow-md"
                 />
 

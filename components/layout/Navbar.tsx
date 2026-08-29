@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { Link, usePathname } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -105,9 +106,13 @@ export function Navbar() {
                   ? "h-10 sm:h-12 md:h-14 lg:h-16"
                   : "h-14 sm:h-16 md:h-20 lg:h-24"
               )}>
-                <img
+                <Image
                   src="/jsws-logo.png"
                   alt="JSWS Logo"
+                  width={180}
+                  height={70}
+                  priority
+                  quality={90}
                   className="h-full w-auto object-contain"
                 />
               </div>

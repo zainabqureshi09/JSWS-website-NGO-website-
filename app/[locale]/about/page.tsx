@@ -1,21 +1,27 @@
 "use client";
 
-import { motion } from"framer-motion";
-import { Heart, Target, Lightbulb, Users, Clock, Trophy } from"lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Heart, Target, Lightbulb, Users, Clock, Trophy } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function AboutPage() {
   const t = useTranslations("AboutPage");
- return (
- <div className="flex flex-col min-h-screen pt-24 bg-white">
- {/* Hero Section */}
- <section className="relative py-20 bg-[var(--color-primary)] text-white overflow-hidden">
- <div className="absolute inset-0 opacity-10 mix-blend-overlay">
- <img
- src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2670&auto=format&fit=crop"
- alt="Hospital building"
- className="w-full h-full object-cover"
- />
+  return (
+    <div className="flex flex-col min-h-screen pt-24 bg-white">
+      {/* Hero Section */}
+      <section className="relative py-20 bg-[var(--color-primary)] text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10 mix-blend-overlay">
+          <Image
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop"
+            alt="Hospital building"
+            width={1600}
+            height={900}
+            priority
+            sizes="100vw"
+            quality={80}
+            className="w-full h-full object-cover"
+          />
  </div>
  <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
  <motion.div

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Image as ImageIcon, Eye, X, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -102,9 +103,14 @@ export default function GalleryPage() {
                   onClick={() => setSelectedImage(item)}
                   className="group relative overflow-hidden rounded-3xl cursor-pointer border-none shadow-md hover:shadow-2xl transition-all duration-300 bg-gray-900"
                 >
-                  <img
+                  <Image
                     src={item.src}
                     alt={item.title}
+                    width={400}
+                    height={300}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                    quality={80}
                     className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity p-6 flex flex-col justify-end text-white">
@@ -149,9 +155,12 @@ export default function GalleryPage() {
                 </button>
               </div>
               <div className="overflow-hidden p-4 bg-black flex items-center justify-center">
-                <img
+                <Image
                   src={selectedImage.src}
                   alt={selectedImage.title}
+                  width={800}
+                  height={600}
+                  quality={85}
                   className="max-w-full max-h-[70vh] object-contain rounded-xl"
                 />
               </div>

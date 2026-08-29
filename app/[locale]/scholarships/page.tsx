@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { 
   GraduationCap, 
@@ -33,9 +34,14 @@ export default function ScholarshipsPage() {
       {/* Hero Banner */}
       <section className="relative py-24 bg-sky-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2670&auto=format&fit=crop"
+          <Image
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop"
             alt="Students studying"
+            width={1600}
+            height={900}
+            priority
+            sizes="100vw"
+            quality={80}
             className="w-full h-full object-cover opacity-20"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-sky-950 via-sky-950/80 to-transparent" />

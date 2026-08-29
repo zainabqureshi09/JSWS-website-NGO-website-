@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, CheckCircle2, FileText, Download, Eye, ExternalLink, X, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,9 +43,14 @@ export function ShariahCertificateSection({ showTitle = true }: ShariahCertifica
             className="lg:col-span-5"
           >
             <div className="relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white ring-1 ring-amber-200/60 hover:shadow-amber-500/10 transition-all duration-300">
-              <img
+              <Image
                 src="/shariah-certificate.png"
                 alt="Shariah Approval Certificate for Zakat Funds of JSWS"
+                width={800}
+                height={1100}
+                sizes="(max-width: 768px) 100vw, 40vw"
+                loading="lazy"
+                quality={80}
                 className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                 onClick={() => setIsPreviewOpen(true)}
               />
@@ -194,9 +200,12 @@ export function ShariahCertificateSection({ showTitle = true }: ShariahCertifica
 
               {/* Scrollable Certificate Image */}
               <div className="overflow-auto p-4 sm:p-6 bg-gray-100 flex items-center justify-center">
-                <img
+                <Image
                   src="/shariah-certificate.png"
                   alt="Shariah Certificate Full Document"
+                  width={1000}
+                  height={1400}
+                  quality={85}
                   className="max-w-full max-h-[75vh] object-contain rounded-xl shadow-md border border-gray-300"
                 />
               </div>

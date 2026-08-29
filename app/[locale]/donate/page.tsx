@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -55,9 +56,14 @@ export default function DonatePage() {
       {/* Hero / Emotional Banner */}
       <section className="relative py-24 overflow-hidden bg-gray-900 text-white">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2670&auto=format&fit=crop"
+          <Image
+            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1600&auto=format&fit=crop"
             alt="Helping hands"
+            width={1600}
+            height={900}
+            priority
+            sizes="100vw"
+            quality={80}
             className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent" />

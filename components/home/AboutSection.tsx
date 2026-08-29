@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Heart, ShieldCheck, Stethoscope } from "lucide-react";
 import { GlassCard } from "@/components/premium/GlassCard";
@@ -71,9 +72,14 @@ export function AboutSection() {
 
           <ScrollReveal variant="slide-right" className="relative">
             <div className="relative z-10 aspect-[4/5] overflow-hidden rounded-3xl border-4 border-white shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=2670&auto=format&fit=crop"
+              <Image
+                src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=1200&auto=format&fit=crop"
                 alt="Our medical team"
+                width={800}
+                height={1000}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
+                quality={80}
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />

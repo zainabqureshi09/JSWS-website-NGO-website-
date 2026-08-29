@@ -1,24 +1,29 @@
 "use client";
 
-import { motion } from"framer-motion";
-import { Button } from"@/components/ui/button";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Users, Heart, GraduationCap, MapPin } from"lucide-react";
-
+import { Users, Heart, GraduationCap, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export default function VolunteerPage() {
   const t = useTranslations("VolunteerPage");
- return (
- <div className="flex flex-col min-h-screen pt-24 bg-[var(--color-gray-light)]">
- {/* Hero Section */}
- <section className="relative py-24 bg-gray-900 text-white overflow-hidden">
- <div className="absolute inset-0 z-0">
- <img
- src="https://images.unsplash.com/photo-1593113563332-e1478161f307?q=80&w=2669&auto=format&fit=crop"
- alt="Volunteers helping community"
- className="w-full h-full object-cover opacity-30 mix-blend-overlay"
- />
+  return (
+    <div className="flex flex-col min-h-screen pt-24 bg-[var(--color-gray-light)]">
+      {/* Hero Section */}
+      <section className="relative py-24 bg-gray-900 text-white overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1593113563332-e1478161f307?q=80&w=1600&auto=format&fit=crop"
+            alt="Volunteers helping community"
+            width={1600}
+            height={900}
+            priority
+            sizes="100vw"
+            quality={80}
+            className="w-full h-full object-cover opacity-30 mix-blend-overlay"
+          />
  </div>
  <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
  <motion.div

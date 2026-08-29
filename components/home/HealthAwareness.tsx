@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
@@ -13,9 +14,9 @@ export function HealthAwareness() {
   const t = useTranslations("HealthAwareness");
 
   const articleImages = [
-    "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2670&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2674&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=2679&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=1200&auto=format&fit=crop",
   ];
   const slugs = [
     "understanding-preventive-healthcare",
@@ -66,9 +67,14 @@ export function HealthAwareness() {
               <div>
                 <div className="relative h-56 overflow-hidden">
                   <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
-                  <img
+                  <Image
                     src={article.image}
                     alt={article.title}
+                    width={600}
+                    height={400}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                    quality={80}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
                   <div className="absolute left-4 top-4 z-20">

@@ -1,75 +1,80 @@
 "use client";
 
-import { motion } from"framer-motion";
-import { Button } from"@/components/ui/button";
-import { Download, Beaker, FileText, CheckCircle2 } from"lucide-react";
-import Link from"next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Download, Beaker, FileText, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const labTests = [
-"Complete Blood Count (CBC)",
-"Liver Function Test (LFT)",
-"Kidney Function Test (KFT)",
-"Lipid Profile",
-"Thyroid Profile",
-"Blood Sugar (Fasting/Random)",
-"HbA1c",
-"Vitamin D & B12",
-"Hormonal Assays",
-"Infectious Disease Screening"
+  "Complete Blood Count (CBC)",
+  "Liver Function Test (LFT)",
+  "Kidney Function Test (KFT)",
+  "Lipid Profile",
+  "Thyroid Profile",
+  "Blood Sugar (Fasting/Random)",
+  "HbA1c",
+  "Vitamin D & B12",
+  "Hormonal Assays",
+  "Infectious Disease Screening"
 ];
-
-import { useTranslations } from "next-intl";
 
 export default function LaboratoryPage() {
   const t = useTranslations("LaboratoryPage");
- return (
- <div className="flex flex-col min-h-screen pt-24 bg-white">
- {/* Hero Section */}
- <section className="relative py-20 overflow-hidden bg-[var(--color-gray-light)]">
- <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col md:flex-row items-center gap-12">
- <motion.div
- initial={{ opacity: 0, x: -30 }}
- animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.8 }}
- className="w-full md:w-1/2 space-y-6"
- >
-          <div className="inline-flex items-center gap-3 p-2 px-4 bg-white rounded-2xl border border-gray-200 shadow-sm w-fit mb-2">
-            <img src="/AMTF_logo.png" alt="AMTF Logo" className="h-10 w-auto object-contain" />
-            <span className="text-gray-400 font-bold text-sm">+</span>
-            <img src="/jsmdc-logo.png" alt="JSMDC Logo" className="h-10 w-auto object-contain" />
-            <span className="text-xs font-bold text-gray-700 pl-2 border-l border-gray-200 hidden sm:inline">Joint AMTF & JSMDC Diagnostic Partnership</span>
-          </div>
- <h1 className="font-heading text-5xl md:text-6xl font-bold text-[var(--color-black)] leading-tight">
- {t('hero_title_start')} <span className="text-[var(--color-primary)]">{t('hero_title_highlight')}</span>
- </h1>
- <p className="text-lg text-gray-600">
- {t('hero_desc')}
- </p>
- <div className="flex flex-wrap gap-4 pt-4">
- <Button asChild size="lg"className="rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] text-white">
- <Link href="#download-report">{t('download_report')} <Download className="ml-2 w-4 h-4"/></Link>
- </Button>
- <Button asChild size="lg"variant="outline"className="rounded-full border-gray-300">
- <Link href="#tests">{t('view_tests')}</Link>
- </Button>
- </div>
- </motion.div>
- <motion.div
- initial={{ opacity: 0, x: 30 }}
- animate={{ opacity: 1, x: 0 }}
- transition={{ duration: 0.8, delay: 0.2 }}
- className="w-full md:w-1/2"
- >
- <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
- <img
- src="https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2670&auto=format&fit=crop"
- alt="Modern laboratory equipment"
- className="w-full h-full object-cover"
- />
- </div>
- </motion.div>
- </div>
- </section>
+  return (
+    <div className="flex flex-col min-h-screen pt-24 bg-white">
+      {/* Hero Section */}
+      <section className="relative py-20 overflow-hidden bg-[var(--color-gray-light)]">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col md:flex-row items-center gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full md:w-1/2 space-y-6"
+          >
+            <div className="inline-flex items-center gap-3 p-2 px-4 bg-white rounded-2xl border border-gray-200 shadow-sm w-fit mb-2">
+              <Image src="/AMTF_logo.png" alt="AMTF Logo" width={100} height={40} className="h-10 w-auto object-contain" />
+              <span className="text-gray-400 font-bold text-sm">+</span>
+              <Image src="/jsmdc-logo.png" alt="JSMDC Logo" width={100} height={40} className="h-10 w-auto object-contain" />
+              <span className="text-xs font-bold text-gray-700 pl-2 border-l border-gray-200 hidden sm:inline">Joint AMTF & JSMDC Diagnostic Partnership</span>
+            </div>
+            <h1 className="font-heading text-5xl md:text-6xl font-bold text-[var(--color-black)] leading-tight">
+              {t('hero_title_start')} <span className="text-[var(--color-primary)]">{t('hero_title_highlight')}</span>
+            </h1>
+            <p className="text-lg text-gray-600">
+              {t('hero_desc')}
+            </p>
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Button asChild size="lg" className="rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] text-white">
+                <Link href="#download-report">{t('download_report')} <Download className="ml-2 w-4 h-4"/></Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="rounded-full border-gray-300">
+                <Link href="#tests">{t('view_tests')}</Link>
+              </Button>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full md:w-1/2"
+          >
+            <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+              <Image
+                src="https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=1200&auto=format&fit=crop"
+                alt="Modern laboratory equipment"
+                width={800}
+                height={450}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
+                quality={80}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
  {/* Online Report Section */}
  <section id="download-report"className="py-20 relative">

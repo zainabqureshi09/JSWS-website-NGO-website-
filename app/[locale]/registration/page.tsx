@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   FileCheck, 
@@ -306,9 +307,12 @@ export default function RegistrationPage() {
               </div>
 
               <div className="overflow-auto p-4 sm:p-6 bg-gray-100 flex items-center justify-center">
-                <img
+                <Image
                   src={activeModalDoc.image}
                   alt={activeModalDoc.title}
+                  width={800}
+                  height={1000}
+                  quality={85}
                   className="max-w-full max-h-[70vh] object-contain rounded-xl shadow-md border border-gray-300"
                 />
               </div>
