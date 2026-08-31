@@ -35,10 +35,12 @@ export default function ChatWidget() {
   }, [messages, isLoading]);
 
   const quickReplies = [
-    "How can I donate?",
-    "Where are you located?",
-    "What is SARC?",
-    "Contact information"
+    "How can I donate Zakat?",
+    "Doctor Timings & OPD",
+    "SARC Rehab & Autism",
+    "Shariah Audit Status",
+    "Lab Tests & Reports",
+    "Contact Information"
   ];
 
   const handleQuickReply = (text: string) => {
@@ -91,14 +93,14 @@ export default function ChatWidget() {
                   </div>
                   
                   {/* Quick Replies */}
-                  <div className="flex flex-wrap justify-center gap-2 mt-4">
+                  <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-[320px]">
                     {quickReplies.map((reply, idx) => (
                       <button
                         key={idx}
                         onClick={() => handleQuickReply(reply)}
-                        className="text-xs bg-white border border-red-100 hover:border-[var(--color-primary)] hover:bg-red-50 text-gray-700 hover:text-[var(--color-primary)] px-3 py-1.5 rounded-full transition-all shadow-sm flex items-center gap-1.5"
+                        className="text-xs bg-white border border-red-100 hover:border-[var(--color-primary)] hover:bg-red-50 text-gray-700 hover:text-[var(--color-primary)] px-3 py-1.5 rounded-full transition-all shadow-sm flex items-center gap-1.5 font-medium"
                       >
-                        <HelpCircle size={12} />
+                        <HelpCircle size={12} className="text-red-500" />
                         {reply}
                       </button>
                     ))}
@@ -123,17 +125,19 @@ export default function ChatWidget() {
                   )}
                   
                   <div className={cn(
-                    "max-w-[75%] rounded-2xl p-3.5 text-sm shadow-sm",
+                    "max-w-[80%] rounded-2xl p-3.5 text-sm shadow-sm",
                     m.role === 'user' 
                       ? 'bg-[var(--color-primary)] text-white rounded-tr-sm' 
                       : 'bg-white border border-gray-100 text-gray-800 rounded-tl-sm'
                   )}>
                     <div className="whitespace-pre-wrap leading-relaxed">
-                      {m.parts?.map((part, i) => (
-                        <span key={i}>
-                          {part.type === 'text' ? part.text : null}
-                        </span>
-                      ))}
+                      {typeof (m as unknown as { content?: string }).content === 'string' && (m as unknown as { content?: string }).content
+                        ? (m as unknown as { content?: string }).content
+                        : m.parts?.map((part, i) => (
+                            <span key={i}>
+                              {part.type === 'text' ? part.text : null}
+                            </span>
+                          ))}
                     </div>
                   </div>
                 </motion.div>
