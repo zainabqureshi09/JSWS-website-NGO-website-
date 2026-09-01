@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport } from 'ai';
+import { TextStreamChatTransport } from 'ai';
 import { cn } from '@/lib/utils';
 
 export default function ChatWidget() {
@@ -16,7 +16,7 @@ export default function ChatWidget() {
 
   const [input, setInput] = useState('');
   const { messages, status, sendMessage } = useChat({
-    transport: new DefaultChatTransport({ api: '/api/chat' }),
+    transport: new TextStreamChatTransport({ api: '/api/chat' }),
   });
   const isLoading = status === 'submitted' || status === 'streaming';
 
@@ -42,6 +42,38 @@ export default function ChatWidget() {
     "Lab Tests & Reports",
     "Contact Information"
   ];
+
+  const stripMarkdown = (raw: string): string => {
+    if (!raw) return '';
+    return raw
+      .replace(/\*\*(.*?)\*\*/g, '$1')
+      .replace(/\*(.*?)\*/g, '$1')
+      .replace(/`(.*?)`/g, '$1')
+      .replace(/^#+\s+/gm, '')
+      .replace(/^[\-\*]\s+/gm, '• ');
+  };
+
+  const getMessageContent = (m: any): string => {
+    let rawText = '';
+    if (typeof m.content === 'string' && m.content.trim()) {
+      rawText = m.content;
+    } else if (Array.isArray(m.parts)) {
+      const textParts = m.parts
+        .map((p: any) => {
+          if (typeof p === 'string') return p;
+          if (p && typeof p.text === 'string') return p.text;
+          if (p && typeof p.delta === 'string') return p.delta;
+          return '';
+        })
+        .filter(Boolean);
+      if (textParts.length > 0) {
+        rawText = textParts.join('');
+      }
+    } else if (typeof m.text === 'string' && m.text.trim()) {
+      rawText = m.text;
+    }
+    return stripMarkdown(rawText);
+  };
 
   const handleQuickReply = (text: string) => {
     sendMessage({ text });
@@ -131,13 +163,7 @@ export default function ChatWidget() {
                       : 'bg-white border border-gray-100 text-gray-800 rounded-tl-sm'
                   )}>
                     <div className="whitespace-pre-wrap leading-relaxed">
-                      {typeof (m as unknown as { content?: string }).content === 'string' && (m as unknown as { content?: string }).content
-                        ? (m as unknown as { content?: string }).content
-                        : m.parts?.map((part, i) => (
-                            <span key={i}>
-                              {part.type === 'text' ? part.text : null}
-                            </span>
-                          ))}
+                      {getMessageContent(m)}
                     </div>
                   </div>
                 </motion.div>
