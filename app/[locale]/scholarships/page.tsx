@@ -167,23 +167,39 @@ export default function ScholarshipsPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-gray-700">Gender</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <label className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-sky-50/50 has-[:checked]:border-sky-600 has-[:checked]:bg-sky-50 has-[:checked]:text-sky-700 font-semibold text-sm cursor-pointer transition-all">
+                        <input required type="radio" name="gender" value="Male" className="accent-sky-600 w-4 h-4" />
+                        <span>Male</span>
+                      </label>
+                      <label className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-gray-200 bg-gray-50 hover:bg-sky-50/50 has-[:checked]:border-sky-600 has-[:checked]:bg-sky-50 has-[:checked]:text-sky-700 font-semibold text-sm cursor-pointer transition-all">
+                        <input required type="radio" name="gender" value="Female" className="accent-sky-600 w-4 h-4" />
+                        <span>Female</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
                     <label className="text-xs font-bold text-gray-700">Phone Number (WhatsApp)</label>
                     <input required type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600" placeholder="03001234567" />
                   </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-gray-700">Educational Level</label>
-                    <select className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600">
+                    <select required className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600">
+                      <option value="">Select Educational Level</option>
                       <option>Matriculation / Secondary School</option>
                       <option>Intermediate / FSc / FA</option>
                       <option>University / Bachelors Degree</option>
                       <option>Vocational / Technical Skills</option>
                     </select>
                   </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-700">School / College / University Name</label>
-                  <input required type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600" placeholder="Institution Name & City" />
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-gray-700">School / College / University Name</label>
+                    <input required type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-sky-600" placeholder="Institution Name & City" />
+                  </div>
                 </div>
 
                 <div className="space-y-1.5">
