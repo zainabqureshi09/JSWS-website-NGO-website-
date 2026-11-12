@@ -36,9 +36,9 @@ export async function addScholarshipApplication(
   if (!spreadsheetId) missingVars.push("GOOGLE_SHEET_ID");
 
   if (missingVars.length > 0) {
-    const errorMsg = `[Google Sheets API Error] Missing required environment variable(s): ${missingVars.join(", ")}`;
-    console.error(errorMsg);
-    throw new Error(errorMsg);
+    const errorMsg = `[Google Sheets API Warning] Missing required environment variable(s): ${missingVars.join(", ")}. Skipping spreadsheet write.`;
+    console.warn(errorMsg);
+    return;
   }
 
   // Handle escaped newline characters, quotes, and carriage returns in private key string
@@ -91,10 +91,11 @@ export async function addScholarshipApplication(
       },
     });
     console.log(`[Google Sheets API Success] Appended scholarship application ${application.id} to Applications!A:O`);
-  } catch (rangeError: any) {
+  } catch (rangeError: unknown) {
+    const message = rangeError instanceof Error ? rangeError.message : String(rangeError);
     console.warn(
       "[Google Sheets API Warning] Could not append to 'Applications!A:O' range, trying fallback range 'A:O':",
-      rangeError?.message || rangeError
+      message
     );
     try {
       await sheets.spreadsheets.values.append({
@@ -106,8 +107,9 @@ export async function addScholarshipApplication(
         },
       });
       console.log(`[Google Sheets API Success] Appended scholarship application ${application.id} to fallback range A:O`);
-    } catch (fallbackErr: any) {
-      console.error("[Google Sheets API Error] Append failed:", fallbackErr?.message || fallbackErr);
+    } catch (fallbackErr: unknown) {
+      const message = fallbackErr instanceof Error ? fallbackErr.message : String(fallbackErr);
+      console.error("[Google Sheets API Error] Append failed:", message);
       throw fallbackErr;
     }
   }

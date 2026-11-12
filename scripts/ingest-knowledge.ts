@@ -61,8 +61,9 @@ export async function runIngestion() {
       });
 
       successCount++;
-    } catch (err: any) {
-      console.error(`❌ Failed to ingest chunk ${chunk.id} (${chunk.title}):`, err?.message || err);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`❌ Failed to ingest chunk ${chunk.id} (${chunk.title}):`, message);
     }
   }
 

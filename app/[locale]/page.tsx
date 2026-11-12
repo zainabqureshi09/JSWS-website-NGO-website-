@@ -8,6 +8,7 @@ import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { HealthAwareness } from "@/components/home/HealthAwareness";
 import { GalleryHighlights } from "@/components/home/GalleryHighlights";
 import { MapSection } from "@/components/home/MapSection";
+import { DonationSection } from "@/components/home/DonationSection";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <WhyChooseUs />
       <GalleryHighlights />
       <HealthAwareness />
+      <DonationSection />
       <MapSection />
     </div>
   );

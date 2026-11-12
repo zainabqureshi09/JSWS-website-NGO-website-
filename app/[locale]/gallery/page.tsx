@@ -1,15 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Image as ImageIcon, Eye, X, Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Image as ImageIcon, Eye, X } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<{ src: string; title: string; desc: string } | null>(null);
+
+  useEffect(() => {
+    if (!selectedImage) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedImage(null);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImage]);
 
   const galleryItems = [
     { id: 1, category: "gp", title: "General Physician Patient Consultation", desc: "General Physician examining and diagnosing patients at JSMDC clinic.", src: "/gp/gp1.jpeg" },
@@ -77,6 +87,8 @@ export default function GalleryPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id)}
+                type="button"
+                aria-pressed={activeCategory === tab.id}
                 className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all ${
                   activeCategory === tab.id
                     ? "bg-[var(--color-primary)] text-white shadow-md shadow-red-500/20"
@@ -101,7 +113,16 @@ export default function GalleryPage() {
               >
                 <Card
                   onClick={() => setSelectedImage(item)}
-                  className="group relative overflow-hidden rounded-3xl cursor-pointer border-none shadow-md hover:shadow-2xl transition-all duration-300 bg-gray-900"
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setSelectedImage(item);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View image: ${item.title}`}
+                  className="group relative cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-gray-900 shadow-sm transition-shadow duration-200 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]"
                 >
                   <Image
                     src={item.src}
@@ -137,6 +158,9 @@ export default function GalleryPage() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setSelectedImage(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="gallery-image-title"
           >
             <motion.div
               initial={{ scale: 0.9 }}
@@ -146,9 +170,11 @@ export default function GalleryPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-4 bg-gray-950 flex items-center justify-between">
-                <h3 className="font-heading font-bold text-base">{selectedImage.title}</h3>
+                <h3 id="gallery-image-title" className="font-heading font-bold text-base">{selectedImage.title}</h3>
                 <button
                   onClick={() => setSelectedImage(null)}
+                  type="button"
+                  aria-label="Close image preview"
                   className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white"
                 >
                   <X className="w-5 h-5" />

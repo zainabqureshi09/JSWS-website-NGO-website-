@@ -1,163 +1,114 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/routing";
-import { GlassCard } from "@/components/premium/GlassCard";
 import { SectionHeader } from "@/components/premium/SectionHeader";
 import { PremiumBackground } from "@/components/premium/PremiumBackground";
 import { ScrollReveal } from "@/components/premium/ScrollReveal";
-import Image from "next/image";
+
+const programs = [
+  {
+    id: "jsmdc",
+    logo: "/jsmdc-logo.png",
+    image: "/gp/gp1.jpeg",
+    href: "/jsmdc" as const,
+  },
+  {
+    id: "sarc",
+    logo: "/sarc-logo.png",
+    image: "/rehab1.jpeg",
+    href: "/sarc" as const,
+  },
+  {
+    id: "awareness",
+    logo: "/cap.png",
+    image: "/home-sec/WhatsApp Image 2026-08-22 at 8.31.40 PM.jpeg",
+    href: "/awareness" as const,
+  },
+  {
+    id: "masp",
+    logo: "/masp.png",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop",
+    href: "/scholarships" as const,
+  },
+];
 
 export function ProjectsSection() {
   const t = useTranslations("HomeProjects");
 
-  const projects = [
-    {
-      id: "jsmdc",
-      logo: "/jsmdc-logo.png",
-      title: t("jsmdc.title"),
-      services: t.raw("jsmdc.services") as string[],
-      href: "/jsmdc",
-      color: "from-blue-600 to-indigo-600",
-      lightColor: "bg-blue-50 border-blue-100",
-      badge: t("badges.jsmdc"),
-    },
-    {
-      id: "sarc",
-      logo: "/sarc-logo.png",
-      title: t("sarc.title"),
-      services: t.raw("sarc.services") as string[],
-      href: "/sarc",
-      color: "from-emerald-600 to-teal-600",
-      lightColor: "bg-emerald-50 border-emerald-100",
-      badge: t("badges.sarc"),
-    },
-    {
-      id: "amtf",
-      logo: "/AMTF_logo.png",
-      secondaryLogo: "/jsmdc-logo.png",
-      title: t("amtf.title"),
-      services: t.raw("amtf.services") as string[],
-      href: "/laboratory",
-      color: "from-cyan-600 to-sky-600",
-      lightColor: "bg-cyan-50 border-cyan-100",
-      badge: t("badges.amtf"),
-    },
-    {
-      id: "fp",
-      logo: "/jsmdc-logo.png",
-      title: t("fp.title"),
-      services: t.raw("fp.services") as string[],
-      href: "/services",
-      color: "from-rose-600 to-pink-600",
-      lightColor: "bg-rose-50 border-rose-100",
-      badge: t("badges.fp"),
-    },
-    {
-      id: "masp",
-      logo: "/masp.png",
-      title: t("masp.title"),
-      services: t.raw("masp.services") as string[],
-      href: "/scholarships",
-      color: "from-amber-500 to-amber-600",
-      lightColor: "bg-amber-50 border-amber-100",
-      badge: t("badges.masp"),
-    },
-    {
-      id: "awareness",
-      logo: "/cap.png",
-      title: t("awareness.title"),
-      services: t.raw("awareness.services") as string[],
-      href: "/awareness",
-      color: "from-purple-600 to-pink-600",
-      lightColor: "bg-purple-50 border-purple-100",
-      badge: t("badges.awareness"),
-    },
-  ];
-
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20 md:py-24">
-      <PremiumBackground variant="muted" />
+    <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+      <PremiumBackground variant="muted" showParticles={false} />
 
-      <div className="container relative z-10 mx-auto px-4 md:px-6">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge={t("badge")}
           title={t("section_title")}
           description={t("section_description")}
         />
 
-        <ScrollReveal className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:gap-10" stagger={0.12}>
-          {projects.map((project, index) => (
-            <div
-              key={project.id}
-              className={`${index === projects.length - 1 && projects.length % 2 !== 0 ? "md:col-span-2 md:max-w-[calc(50%-1.25rem)] md:mx-auto" : ""}`}
-            >
-            <GlassCard key={project.id} className={`group flex h-full flex-col justify-between p-6 sm:p-8 lg:p-10 ${project.lightColor.split(" ")[0]}`}>
-              <div>
-                <div className="mb-6 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <motion.div
-                      whileHover={{ scale: 1.05, rotate: 2 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                      className={`flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border p-2.5 shadow-sm sm:h-24 sm:w-24 bg-white ${project.lightColor.split(" ")[1] ?? "border-gray-200"}`}
-                    >
-                      <Image
-                        src={project.logo}
-                        alt={`${project.title} Primary Logo`}
-                        width={0}
-                        height={0}
-                        sizes="96px"
-                        className="h-full w-full object-contain"
-                      />
-                    </motion.div>
-                    {project.secondaryLogo && (
-                      <motion.div
-                        whileHover={{ scale: 1.05, rotate: -2 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        className={`flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl border p-2.5 shadow-sm sm:h-24 sm:w-24 bg-white ${project.lightColor.split(" ")[1] ?? "border-gray-200"}`}
-                      >
-                        <Image
-                          src={project.secondaryLogo}
-                          alt={`${project.title} Secondary Logo`}
-                          width={0}
-                          height={0}
-                          sizes="96px"
-                          className="h-full w-full object-contain"
-                        />
-                      </motion.div>
-                    )}
+        <ScrollReveal
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:gap-6"
+          stagger={0.08}
+        >
+          {programs.map((program) => {
+            const title = t(`${program.id}.title`);
+            const services = t.raw(`${program.id}.services`) as string[];
+
+            return (
+              <article
+                key={program.id}
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg"
+              >
+                <div className="relative aspect-[16/8] overflow-hidden bg-gray-100">
+                  <Image
+                    src={program.image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                    quality={80}
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950/45 to-transparent" />
+                  <div className="absolute bottom-4 left-4 flex h-14 w-14 items-center justify-center rounded-xl border border-white/80 bg-white p-2 shadow-sm sm:bottom-5 sm:left-5">
+                    <Image
+                      src={program.logo}
+                      alt=""
+                      width={48}
+                      height={48}
+                      sizes="48px"
+                      className="h-full w-full object-contain"
+                    />
                   </div>
-                  <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-wide text-gray-700">
-                    {project.badge}
-                  </span>
                 </div>
 
-                <h3 className="mb-5 font-heading text-xl font-bold tracking-tight text-gray-900 transition-colors group-hover:text-[var(--color-primary)] sm:text-2xl lg:text-3xl">
-                  {project.title}
-                </h3>
-
-                <ul className="mb-6 space-y-3 sm:mb-8 sm:space-y-3.5">
-                  {project.services.map((service, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700 sm:text-base">
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-500" />
-                      <span>{service}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <Link
-                href={project.href as "/"}
-                className={`inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r py-3.5 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg sm:py-4 sm:text-base ${project.color}`}
-              >
-                <span>{t("explore_btn")}</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </GlassCard>
-            </div>
-          ))}
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <h3 className="font-heading text-xl font-semibold leading-snug text-gray-900 sm:text-2xl">
+                    {title}
+                  </h3>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {services.slice(0, 2).map((service) => (
+                      <li
+                        key={service}
+                        className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600"
+                      >
+                        {service}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={program.href}
+                    className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]"
+                  >
+                    {t("explore_btn")}
+                    <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
         </ScrollReveal>
       </div>
     </section>

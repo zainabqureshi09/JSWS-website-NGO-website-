@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
-import { Mail, Phone, MapPin, ShieldCheck, HeartHandshake, Award, ChevronRight } from "lucide-react";
+import { Mail, Phone, MapPin, ShieldCheck, Award, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -35,23 +35,23 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-white text-gray-900 pt-16 pb-10 border-t border-gray-200">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+    <footer className="border-t border-gray-200 bg-white py-12 text-gray-900 sm:py-14">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-gray-200">
           
           {/* Brand & Initiatives (Cols: 4) */}
-          <div className="lg:col-span-4 space-y-6 text-center sm:text-left">
-            <Link href="/" className="inline-block group">
-              <div className="bg-white p-3 rounded-2xl inline-block shadow-md group-hover:scale-105 transition-transform duration-300">
+          <div className="space-y-5 text-center sm:text-left lg:col-span-4">
+            <Link href="/" className="group inline-block">
+              <div className="inline-block rounded-xl border border-gray-100 bg-white p-2 transition-shadow duration-200 group-hover:shadow-sm">
                 <Image
                   src="/jsws-logo.png"
                   alt="JSWS Logo"
                   width={180}
-                  height={180}
+                  height={96}
                   loading="lazy"
                   quality={85}
-                  className="h-28 sm:h-36 md:h-40 lg:h-44 w-auto object-contain"
+                  className="h-16 w-auto object-contain sm:h-20"
                 />
               </div>
             </Link>
@@ -63,7 +63,7 @@ export function Footer() {
             {/* Child Initiatives Logos */}
             <div className="space-y-2 pt-1">
               <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-primary)]">{tc('operational_arms')}</p>
-              <div className="inline-flex flex-wrap items-center gap-3 bg-gray-50 px-4 py-2.5 rounded-2xl border border-gray-200 shadow-sm">
+              <div className="inline-flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5">
                 {operationalArms.map((arm, idx) => (
                   <motion.div key={idx} whileHover={{ scale: 1.08, y: -2 }} transition={{ type: "spring", stiffness: 400 }}>
                     <Link href={arm.href} className="block">
@@ -101,6 +101,7 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-gray-600">
               {[
+                { href: "/blog", label: "Blog & Health Resources" },
                 { href: "/about", label: t('links.about') },
                 { href: "/services", label: t('links.services') },
                 { href: "/doctors", label: t('links.doctors') },

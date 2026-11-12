@@ -73,8 +73,8 @@ export function AboutSection() {
           <ScrollReveal variant="slide-right" className="relative">
             <div className="relative z-10 aspect-[4/5] overflow-hidden rounded-3xl border-4 border-white shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=1200&auto=format&fit=crop"
-                alt="Our medical team"
+                src="/gp/gp1.jpeg"
+                alt="General Physician consultation at the JSWS clinic"
                 width={800}
                 height={1000}
                 sizes="(max-width: 1024px) 100vw, 50vw"

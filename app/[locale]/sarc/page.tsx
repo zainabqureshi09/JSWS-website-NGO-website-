@@ -11,14 +11,11 @@ import {
   Smile, 
   Sparkles, 
   CheckCircle2, 
-  Phone, 
-  Clock, 
   Calendar,
   Users
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { BidiLTR } from "@/components/ui/BidiLTR";
 import { Link } from "@/i18n/routing";
 
 import { PhysicalTherapySection } from "@/components/services/PhysicalTherapySection";
@@ -62,8 +59,8 @@ export default function SARCPage() {
       <section className="relative py-24 bg-indigo-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=1600&auto=format&fit=crop"
-            alt="Child therapy and rehab"
+            src="/rehab1.jpeg"
+            alt="Rehabilitation care at SARC"
             width={1600}
             height={900}
             priority

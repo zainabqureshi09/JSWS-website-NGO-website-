@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Sparkles, User, Bot, HelpCircle } from 'lucide-react';
+import { MessageCircle, X, Send, Sparkles, Bot, HelpCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useChat } from '@ai-sdk/react';
-import { TextStreamChatTransport } from 'ai';
+import { TextStreamChatTransport, type UIMessage } from 'ai';
 import { cn } from '@/lib/utils';
 
 export default function ChatWidget() {
@@ -53,25 +53,11 @@ export default function ChatWidget() {
       .replace(/^[\-\*]\s+/gm, '• ');
   };
 
-  const getMessageContent = (m: any): string => {
-    let rawText = '';
-    if (typeof m.content === 'string' && m.content.trim()) {
-      rawText = m.content;
-    } else if (Array.isArray(m.parts)) {
-      const textParts = m.parts
-        .map((p: any) => {
-          if (typeof p === 'string') return p;
-          if (p && typeof p.text === 'string') return p.text;
-          if (p && typeof p.delta === 'string') return p.delta;
-          return '';
-        })
-        .filter(Boolean);
-      if (textParts.length > 0) {
-        rawText = textParts.join('');
-      }
-    } else if (typeof m.text === 'string' && m.text.trim()) {
-      rawText = m.text;
-    }
+  const getMessageContent = (message: UIMessage): string => {
+    const rawText = message.parts
+      .filter((part) => part.type === 'text')
+      .map((part) => part.text)
+      .join('');
     return stripMarkdown(rawText);
   };
 

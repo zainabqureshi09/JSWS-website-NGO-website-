@@ -10,28 +10,28 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen pt-24 bg-white">
       {/* Hero Section */}
-      <section className="relative py-20 bg-[var(--color-primary)] text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10 mix-blend-overlay">
+      <section className="relative overflow-hidden bg-gray-50 py-16 text-gray-900 sm:py-20 lg:py-24">
+ <div className="absolute inset-y-0 end-0 hidden w-1/2 lg:block">
           <Image
-            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop"
-            alt="Hospital building"
-            width={1600}
-            height={900}
-            priority
-            sizes="100vw"
-            quality={80}
-            className="w-full h-full object-cover"
-          />
+     src="/gp/gp1.jpeg"
+     alt="Medical consultation at the JSWS clinic"
+     fill
+     fetchPriority="high"
+     sizes="50vw"
+     quality={80}
+     className="object-cover"
+   />
+   <div className="absolute inset-0 bg-gradient-to-r from-gray-50 via-gray-50/70 to-transparent" />
  </div>
- <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
+ <div className="container relative z-10 mx-auto max-w-7xl px-4 md:px-6">
  <motion.div
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ duration: 0.8 }}
- className="max-w-3xl mx-auto space-y-6"
+ className="mx-auto max-w-3xl space-y-6 text-center lg:mx-0 lg:text-left"
  >
- <h1 className="font-heading text-5xl md:text-6xl font-bold">{t('hero_title')}</h1>
- <p className="text-xl text-red-100">
+ <h1 className="font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">{t('hero_title')}</h1>
+ <p className="text-lg leading-relaxed text-gray-600 sm:text-xl">
  {t('hero_desc')}
  </p>
  </motion.div>

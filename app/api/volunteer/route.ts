@@ -44,12 +44,13 @@ export async function POST(request: Request) {
       success: true,
       message: "Thank you for volunteering with JSWS. We will get in touch with you soon.",
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error("[JSWS Volunteer API Error]:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error?.message || "Failed to process volunteer application. Please try again later.",
+        error: message || "Failed to process volunteer application. Please try again later.",
       },
       { status: 500 }
     );

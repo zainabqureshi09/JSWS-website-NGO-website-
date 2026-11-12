@@ -66,11 +66,12 @@ export async function ensureQdrantCollection(): Promise<{ success: boolean; mess
       success: true,
       message: `Collection "${config.collectionName}" already exists.`,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error ensuring Qdrant collection:', error);
+    const message = error instanceof Error ? error.message : String(error);
     return {
       success: false,
-      message: `Failed to ensure collection: ${error?.message || error}`,
+      message: `Failed to ensure collection: ${message}`,
     };
   }
 }
@@ -109,16 +110,14 @@ export async function searchQdrantKnowledge(
       with_payload: true,
     });
 
-    const points = (results as any)?.points || [];
-
-    return points.map((item: any) => ({
+    return results.points.map((item) => ({
       id: item.id,
       score: item.score,
       payload: {
-        content: (item.payload?.content as string) || '',
-        title: (item.payload?.title as string) || '',
-        category: (item.payload?.category as string) || '',
-        url: (item.payload?.url as string) || undefined,
+        content: typeof item.payload?.content === 'string' ? item.payload.content : '',
+        title: typeof item.payload?.title === 'string' ? item.payload.title : '',
+        category: typeof item.payload?.category === 'string' ? item.payload.category : '',
+        url: typeof item.payload?.url === 'string' ? item.payload.url : undefined,
       },
     }));
   } catch (error) {

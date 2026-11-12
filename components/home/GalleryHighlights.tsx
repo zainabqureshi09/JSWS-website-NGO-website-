@@ -1,150 +1,97 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Camera } from "lucide-react";
+import { ArrowRight, Camera } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
-import { PremiumBackground } from "@/components/premium/PremiumBackground";
 import { ScrollReveal } from "@/components/premium/ScrollReveal";
 
-const DomeGallery = dynamic(() => import("@/components/DomeGallery"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center bg-gray-50 text-gray-400">
-      <div className="flex flex-col items-center gap-3">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-red-600 border-t-transparent" />
-        <span className="text-sm font-medium text-gray-500">Loading Interactive 3D Gallery...</span>
-      </div>
-    </div>
-  ),
-});
-
-const allPublicImages = [
-  // Rehab photos in public root
-  "/rehab1.jpeg",
-  "/rehab2.jpeg",
-  "/rehab3.jpeg",
-  "/rehab4.jpeg",
-  "/rehab5.jpeg",
-  "/rehab6.jpeg",
-  "/rehab7.jpeg",
-  "/rehab8.jpeg",
-  "/rehab9.jpeg",
-  "/rehab10.jpeg",
-
-  // JSMDC Doctor Consultation photos in public/doc-img
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.24 PM (1).jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.24 PM.jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.25 PM (1).jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.25 PM (2).jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.25 PM.jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.27 PM.jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.29 PM (1).jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.29 PM (2).jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.29 PM.jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.32 PM (1).jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.32 PM.jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.33 PM.jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.34 PM (1).jpeg",
-  "/doc-img/WhatsApp Image 2026-08-25 at 5.00.34 PM.jpeg",
-
-  // SARC Rehabilitation photos in public/sarc-img
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.10 AM.jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM (1).jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM (2).jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.11 AM.jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (1).jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (2).jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM (3).jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.12 AM.jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.13 AM (1).jpeg",
-  "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.13 AM.jpeg",
-
-  // General OPD photos in public/gp
-  "/gp/gp1.jpeg",
-  "/gp/gp2.jpeg",
-  "/gp/gp3.jpeg",
-  "/gp/gp4.jpeg",
-  "/gp/gp5.jpeg",
-
-  // Physical Therapy photos in public/pt
-  "/pt/pt1.jpeg",
-  "/pt/pt2.jpeg",
-  "/pt/pt3.jpeg",
-  "/pt/pt4.jpeg",
-  "/pt/pt5.jpeg",
-  "/pt/pt6.jpeg",
-  "/pt/pt7.jpeg",
-  "/pt/pt8.jpeg",
-  "/pt/pt9.jpeg",
-  "/pt/pt10.jpeg",
-  "/pt/pt11.jpeg",
-
-  // Community Welfare photos in public/home-sec
-  "/home-sec/WhatsApp Image 2026-08-22 at 8.31.40 PM (1).jpeg",
-  "/home-sec/WhatsApp Image 2026-08-22 at 8.31.40 PM (2).jpeg",
-  "/home-sec/WhatsApp Image 2026-08-22 at 8.31.40 PM (3).jpeg",
-  "/home-sec/WhatsApp Image 2026-08-22 at 8.31.40 PM.jpeg",
-  "/home-sec/WhatsApp Image 2026-08-22 at 8.31.41 PM.jpeg",
+const galleryImages = [
+  {
+    src: "/gp/gp1.jpeg",
+    alt: "General Physician Patient Consultation",
+  },
+  {
+    src: "/pt/pt1.jpeg",
+    alt: "Physical Therapy Motor Exercises",
+  },
+  {
+    src: "/sarc-img/WhatsApp Image 2026-08-21 at 11.44.10 AM.jpeg",
+    alt: "Physical Therapy SARC",
+  },
+  {
+    src: "/doc-img/WhatsApp Image 2026-08-25 at 5.00.24 PM (1).jpeg",
+    alt: "JSMDC Clinical OPD",
+  },
+  {
+    src: "/rehab3.jpeg",
+    alt: "Rehabilitation at JSWS",
+  },
+  {
+    src: "/home-sec/WhatsApp Image 2026-08-22 at 8.31.40 PM.jpeg",
+    alt: "JSWS community welfare activity",
+  },
 ];
 
 export function GalleryHighlights() {
   const t = useTranslations("GalleryHighlights");
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-gray-50 via-white to-red-50/20 py-16 sm:py-20 md:py-24 lg:py-28 border-y border-gray-100">
-      <PremiumBackground variant="light" showParticles={false} />
-
-      <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-7xl">
-        <ScrollReveal className="mb-10 flex flex-col justify-between gap-6 md:mb-14 md:flex-row md:items-end">
+    <section className="border-y border-gray-200 bg-gray-50 py-16 sm:py-20 lg:py-24">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <ScrollReveal className="mb-8 flex flex-col justify-between gap-5 sm:mb-10 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
-            <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-red-700 shadow-sm">
-              <Camera className="h-3.5 w-3.5 text-red-600" /> {t("badge")}
+            <span className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)]">
+              <Camera className="h-4 w-4" aria-hidden="true" />
+              {t("badge")}
             </span>
-            <h2 className="font-heading text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
+            <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
               {t("title")}
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-gray-600 leading-relaxed">
-              Interactive 3D dome showcase featuring live moments from JSWS healthcare OPD, SARC rehabilitation, doctor consultations, physical therapy, and community welfare camps.
-            </p>
           </div>
-
           <Button
             asChild
             variant="outline"
-            className="hidden items-center gap-2 rounded-full border-gray-300 bg-white px-6 font-semibold text-gray-900 shadow-sm hover:bg-red-50 hover:text-[var(--color-primary)] md:flex"
+            className="hidden rounded-full border-gray-300 bg-white px-5 font-semibold text-gray-900 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] sm:inline-flex"
           >
             <Link href="/gallery">
-              <span>{t("view_all")}</span>
+              {t("view_all")}
+              <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" aria-hidden="true" />
             </Link>
           </Button>
         </ScrollReveal>
 
-        {/* 3D Interactive Dome Gallery Component with White Theme */}
-        <ScrollReveal variant="scale">
-          <div className="relative mx-auto h-[550px] sm:h-[650px] md:h-[700px] w-full overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
-            <DomeGallery
-              images={allPublicImages}
-              fit={0.65}
-              fitBasis="auto"
-              overlayBlurColor="#ffffff"
-              openedImageWidth="520px"
-              openedImageHeight="520px"
-              imageBorderRadius="16px"
-              openedImageBorderRadius="24px"
-              grayscale={false}
-            />
-          </div>
+        <ScrollReveal className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
+          {galleryImages.map((image) => (
+            <Link
+              key={image.src}
+              href="/gallery"
+              aria-label={image.alt}
+              className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] sm:rounded-2xl"
+            >
+              <Image
+                src={image.src}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 420px"
+                quality={80}
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </Link>
+          ))}
         </ScrollReveal>
 
-        <div className="mt-8 text-center md:hidden">
+        <div className="mt-6 sm:hidden">
           <Button
             asChild
             variant="outline"
-            className="w-full rounded-full border-gray-300 bg-white py-6 font-semibold text-gray-900 shadow-sm"
+            className="w-full rounded-full border-gray-300 bg-white font-semibold text-gray-900"
           >
-            <Link href="/gallery">{t("view_all")}</Link>
+            <Link href="/gallery">
+              {t("view_all")}
+              <ArrowRight className="ms-2 h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+            </Link>
           </Button>
         </div>
       </div>

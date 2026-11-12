@@ -141,32 +141,36 @@ export default function DonatePage() {
                   transition={{ delay: idx * 0.08 }}
                 >
                   <Card
-                    onClick={() => setSelectedCategory(cat.id)}
                     className={cn(
-                      "h-full cursor-pointer transition-all duration-300 hover:shadow-xl border-2 rounded-3xl bg-white overflow-hidden flex flex-col justify-between p-6",
+                      "h-full border-2 rounded-2xl bg-white overflow-hidden flex flex-col justify-between p-5 transition-shadow duration-200 hover:shadow-md sm:p-6",
                       isSelected
                         ? "border-[var(--color-primary)] ring-2 ring-red-500/20 bg-red-50/20"
                         : "border-gray-100 hover:border-red-200"
                     )}
                   >
-                    <div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCategory(cat.id)}
+                      aria-pressed={isSelected}
+                      className="w-full rounded-xl text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)] rtl:text-right"
+                    >
                       <div
                         className={cn(
-                          "w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-colors",
+                          "mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
                           isSelected
-                            ? "bg-[var(--color-primary)] text-white shadow-md shadow-red-500/20"
+                            ? "bg-[var(--color-primary)] text-white"
                             : "bg-red-50 text-[var(--color-primary)]"
                         )}
                       >
-                        <Icon className="w-7 h-7" />
+                        <Icon className="h-6 w-6" aria-hidden="true" />
                       </div>
-                      <h3 className="font-bold text-lg text-gray-900 mb-2">
+                      <h3 className="mb-2 text-lg font-semibold text-gray-900">
                         {cat.label}
                       </h3>
-                      <p className="text-xs sm:text-sm text-gray-500 leading-relaxed mb-6">
+                      <p className="mb-6 text-sm leading-relaxed text-gray-600">
                         {cat.desc}
                       </p>
-                    </div>
+                    </button>
 
                     <Button
                       variant={isSelected ? "default" : "outline"}

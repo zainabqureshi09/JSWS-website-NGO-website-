@@ -5,12 +5,24 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   compress: true,
+  transpilePackages: [
+    'sanity',
+    'next-sanity',
+    '@sanity/vision',
+    '@sanity/image-url',
+    '@sanity/ui',
+    '@sanity/icons',
+    '@sentry/core',
+    '@sentry/browser',
+    '@sentry/react',
+  ],
   turbopack: {
     root: process.cwd(),
   },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000,
+    qualities: [75, 80, 85, 90, 100],
     remotePatterns: [
       {
         protocol: 'https',

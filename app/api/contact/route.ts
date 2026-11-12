@@ -55,12 +55,13 @@ export async function POST(request: Request) {
       success: true,
       message: "Thank you for reaching out. We have received your message/application.",
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error("[JSWS Contact API Error]:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error?.message || "Failed to process request. Please try again later.",
+        error: message || "Failed to process request. Please try again later.",
       },
       { status: 500 }
     );

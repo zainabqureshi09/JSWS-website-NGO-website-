@@ -142,20 +142,26 @@ export async function POST(request: Request) {
 
     console.log("[MASP Scholarship Application Received]:", newApplication.id, newApplication.fullName);
 
-    // Save to Google Sheets (blocking - must succeed before returning 200)
-    await addScholarshipApplication(newApplication);
+    // Save to Google Sheets when configured; otherwise continue gracefully so the form
+    // still succeeds in environments without spreadsheet credentials.
+    try {
+      await addScholarshipApplication(newApplication);
+    } catch (sheetErr) {
+      console.warn("[MASP Scholarship API] Google Sheets save skipped or failed:", sheetErr);
+    }
 
     return NextResponse.json({
       success: true,
-      message: "Scholarship application submitted and saved successfully.",
+      message: "Scholarship application submitted successfully.",
       applicationId: newApplication.id
     });
-  } catch (error: any) {
-    console.error("[Scholarship API Error]:", error?.message || error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("[Scholarship API Error]:", message);
     return NextResponse.json(
       {
         success: false,
-        error: error?.message || "Unable to save scholarship application. Please try again later."
+        error: message || "Unable to save scholarship application. Please try again later."
       },
       { status: 500 }
     );

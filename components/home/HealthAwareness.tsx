@@ -54,7 +54,7 @@ export function HealthAwareness() {
             data-cursor="pointer"
             className="hidden items-center gap-2 rounded-full border-gray-300 px-6 font-semibold hover:bg-gray-100 md:flex"
           >
-            <Link href="/awareness">
+            <Link href="/blog">
               <span>{t("view_all")}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
@@ -89,7 +89,7 @@ export function HealthAwareness() {
                     <span>{article.readTime}</span>
                   </div>
                   <h3 className="font-heading text-xl font-bold leading-snug text-gray-900 transition-colors group-hover:text-[var(--color-primary)]">
-                    <Link href="/awareness">
+                    <Link href={`/blog/${article.slug}`}>
                       {article.title}
                     </Link>
                   </h3>
@@ -101,7 +101,7 @@ export function HealthAwareness() {
 
               <div className="p-6 pt-2">
                 <Link
-                  href="/awareness"
+                  href={`/blog/${article.slug}`}
                   className="group/link inline-flex items-center gap-2 text-sm font-bold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
                 >
                   <motion.span className="inline-block" whileHover={{ x: 4 }}>
@@ -120,7 +120,7 @@ export function HealthAwareness() {
             variant="outline"
             className="w-full rounded-full border-gray-300 py-6 font-semibold"
           >
-            <Link href="/awareness">{t("view_all")}</Link>
+            <Link href="/blog">{t("view_all")}</Link>
           </Button>
         </div>
       </div>

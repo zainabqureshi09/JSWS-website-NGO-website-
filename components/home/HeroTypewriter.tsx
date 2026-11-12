@@ -1,7 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText, useGSAP);
 
 interface HeroTypewriterProps {
   titleStart: string;
@@ -14,77 +18,48 @@ export function HeroTypewriter({
   titleHighlight,
   titleEnd,
 }: HeroTypewriterProps) {
-  // Initialize with full text for immediate SSR rendering and 0ms LCP delay
-  const [displayedStart, setDisplayedStart] = useState(titleStart);
-  const [displayedHighlight, setDisplayedHighlight] = useState(titleHighlight);
-  const [displayedEnd, setDisplayedEnd] = useState(titleEnd);
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
+      const lines = gsap.utils.toArray<HTMLElement>(".hero-line", headingRef.current);
+      const splits = lines.map((line) =>
+        SplitText.create(line, { type: "words", wordsClass: "hero-word", mask: "words" }),
+      );
+      const timeline = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-    let timer: NodeJS.Timeout;
-    // Defer typing animation start slightly so main thread is free during initial LCP paint
-    const rafId = requestAnimationFrame(() => {
-      let index = 0;
-      const startLen = titleStart.length;
-      const highlightLen = titleHighlight.length;
-      const endLen = titleEnd.length;
+      splits.forEach((split, index) => {
+        timeline.fromTo(
+          split.words,
+          { autoAlpha: 0, yPercent: 110, filter: "blur(7px)" },
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            filter: "blur(0px)",
+            duration: 0.8,
+            stagger: 0.065,
+            clearProps: "filter,transform,opacity,visibility",
+          },
+          index * 0.14,
+        );
+      });
 
-      setDisplayedStart("");
-      setDisplayedHighlight("");
-      setDisplayedEnd("");
-
-      timer = setInterval(() => {
-        index++;
-        if (index <= startLen) {
-          setDisplayedStart(titleStart.slice(0, index));
-        } else if (index <= startLen + highlightLen) {
-          setDisplayedHighlight(titleHighlight.slice(0, index - startLen));
-        } else if (index <= startLen + highlightLen + endLen) {
-          setDisplayedEnd(titleEnd.slice(0, index - startLen - highlightLen));
-        } else {
-          clearInterval(timer);
-        }
-      }, 45);
-    });
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      if (timer) clearInterval(timer);
-    };
-  }, [titleStart, titleHighlight, titleEnd]);
+      return () => splits.forEach((split) => split.revert());
+    },
+    {
+      scope: headingRef,
+      dependencies: [titleStart, titleHighlight, titleEnd],
+      revertOnUpdate: true,
+    },
+  );
 
   return (
-    <div className="hero-title-wrap my-2 sm:my-3">
-      {/* Blinking Cursor Bar at the Beginning */}
-      <div className="flex items-center gap-2.5 sm:gap-3.5 mb-2">
-        <motion.span
-          animate={{ opacity: [1, 0.15, 1], scaleY: [1, 0.85, 1] }}
-          transition={{ duration: 0.75, repeat: Infinity, ease: "easeInOut" }}
-          className="inline-block w-3 sm:w-4 md:w-5 h-[0.85em] bg-gradient-to-b from-red-500 via-rose-500 to-red-600 rounded-md shadow-[0_0_24px_rgba(239,68,68,0.95)] border-r-2 border-white/90 align-middle shrink-0"
-          title="Active Cursor"
-        />
-        <h2 className="hero-title-line font-heading text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-md min-h-[1.2em]">
-          {displayedStart}
-        </h2>
-      </div>
-
-      {/* Highlighted Word Reveal */}
-      <h2
-        className="hero-title-line my-1 sm:my-2 font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-red-100 to-rose-400 drop-shadow-2xl min-h-[1.1em]"
-        style={{ WebkitTextStroke: "1px rgba(225,29,72,0.5)" }}
-      >
-        {displayedHighlight}
-      </h2>
-
-      {/* End Title Line Reveal */}
-      <h1 className="hero-title-line mb-6 font-heading text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-100 sm:mb-8 min-h-[1.2em]">
-        {displayedEnd}
-      </h1>
-    </div>
+    <h1 ref={headingRef} className="hero-title-wrap mb-6 max-w-4xl font-heading">
+      <span className="hero-line hero-line--soft">{titleStart}</span>
+      <span className="hero-line hero-line--highlight">{titleHighlight}</span>
+      <span className="hero-line hero-line--subtle">{titleEnd}</span>
+    </h1>
   );
 }
-

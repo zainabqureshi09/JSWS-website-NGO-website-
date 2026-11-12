@@ -185,7 +185,7 @@ export default function ContactPage() {
                 </h3>
 
                 {status === "success" && (
-                  <div className="mb-6 p-4 rounded-xl bg-green-50 border border-green-200 flex items-start gap-3 text-green-800">
+                  <div role="status" className="mb-6 p-4 rounded-xl bg-green-50 border border-green-200 flex items-start gap-3 text-green-800">
                     <CheckCircle2 className="w-6 h-6 text-green-600 shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-semibold text-green-900">Message Sent Successfully!</h4>
@@ -197,7 +197,7 @@ export default function ContactPage() {
                 )}
 
                 {status === "error" && (
-                  <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-red-800">
+                  <div role="alert" className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-red-800">
                     <AlertCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
                     <div>
                       <h4 className="font-semibold text-red-900">Submission Error</h4>
@@ -217,10 +217,15 @@ export default function ContactPage() {
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-gray-700">{t("name")}</label>
+                      <label htmlFor="contact-name" className="text-sm font-medium text-gray-700">{t("name")}</label>
                       <input
+                        id="contact-name"
                         type="text"
                         name="name"
+                        autoComplete="name"
+                        required
+                        aria-invalid={Boolean(fieldErrors.name)}
+                        aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
                         value={formData.name}
                         onChange={(e) => {
                           setFormData({ ...formData, name: e.target.value });
@@ -228,19 +233,24 @@ export default function ContactPage() {
                             setFieldErrors({ ...fieldErrors, name: "" });
                           }
                         }}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-gray-900"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                         placeholder={t("placeholders.name")}
                         disabled={status === "loading"}
                       />
                       {fieldErrors.name && (
-                        <p className="text-xs text-red-500 font-medium">{fieldErrors.name}</p>
+                        <p id="contact-name-error" className="text-xs font-medium text-red-600">{fieldErrors.name}</p>
                       )}
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-gray-700">{t("phone")}</label>
+                      <label htmlFor="contact-phone" className="text-sm font-medium text-gray-700">{t("phone")}</label>
                       <input
-                        type="text"
+                        id="contact-phone"
+                        type="tel"
                         name="phone"
+                        autoComplete="tel"
+                        required
+                        aria-invalid={Boolean(fieldErrors.phone)}
+                        aria-describedby={fieldErrors.phone ? "contact-phone-error" : undefined}
                         value={formData.phone}
                         onChange={(e) => {
                           setFormData({ ...formData, phone: e.target.value });
@@ -248,20 +258,25 @@ export default function ContactPage() {
                             setFieldErrors({ ...fieldErrors, phone: "" });
                           }
                         }}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-gray-900"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                         placeholder={t("placeholders.phone")}
                         disabled={status === "loading"}
                       />
                       {fieldErrors.phone && (
-                        <p className="text-xs text-red-500 font-medium">{fieldErrors.phone}</p>
+                        <p id="contact-phone-error" className="text-xs font-medium text-red-600">{fieldErrors.phone}</p>
                       )}
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">{t("email_label")}</label>
+                    <label htmlFor="contact-email" className="text-sm font-medium text-gray-700">{t("email_label")}</label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
+                      autoComplete="email"
+                      required
+                      aria-invalid={Boolean(fieldErrors.email)}
+                      aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
                       value={formData.email}
                       onChange={(e) => {
                         setFormData({ ...formData, email: e.target.value });
@@ -269,18 +284,22 @@ export default function ContactPage() {
                           setFieldErrors({ ...fieldErrors, email: "" });
                         }
                       }}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-gray-900"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                       placeholder={t("placeholders.email")}
                       disabled={status === "loading"}
                     />
                     {fieldErrors.email && (
-                      <p className="text-xs text-red-500 font-medium">{fieldErrors.email}</p>
+                      <p id="contact-email-error" className="text-xs font-medium text-red-600">{fieldErrors.email}</p>
                     )}
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">{t("message")}</label>
+                    <label htmlFor="contact-message" className="text-sm font-medium text-gray-700">{t("message")}</label>
                     <textarea
+                      id="contact-message"
                       name="message"
+                      required
+                      aria-invalid={Boolean(fieldErrors.message)}
+                      aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
                       value={formData.message}
                       onChange={(e) => {
                         setFormData({ ...formData, message: e.target.value });
@@ -288,12 +307,12 @@ export default function ContactPage() {
                           setFieldErrors({ ...fieldErrors, message: "" });
                         }
                       }}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] h-32 resize-none text-gray-900"
+                      className="h-32 w-full resize-none rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                       placeholder={t("placeholders.message")}
                       disabled={status === "loading"}
                     ></textarea>
                     {fieldErrors.message && (
-                      <p className="text-xs text-red-500 font-medium">{fieldErrors.message}</p>
+                      <p id="contact-message-error" className="text-xs font-medium text-red-600">{fieldErrors.message}</p>
                     )}
                   </div>
                   <Button

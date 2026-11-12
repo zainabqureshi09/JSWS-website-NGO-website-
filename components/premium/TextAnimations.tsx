@@ -24,21 +24,22 @@ export function TypewriterHeading({
   cursorPosition = "start",
   speed = 45,
 }: TypewriterHeadingProps) {
-  const [displayedText, setDisplayedText] = useState("");
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [typing, setTyping] = useState({ text, displayedText: "" });
+  const displayedText = prefersReducedMotion
+    ? text
+    : typing.text === text
+      ? typing.displayedText
+      : "";
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setDisplayedText(text);
-      return;
-    }
+    if (prefersReducedMotion || !text) return;
 
     let i = 0;
-    setDisplayedText("");
     const timer = setInterval(() => {
       if (i < text.length) {
-        setDisplayedText((prev) => text.slice(0, i + 1));
         i++;
+        setTyping({ text, displayedText: text.slice(0, i) });
       } else {
         clearInterval(timer);
       }
@@ -47,16 +48,9 @@ export function TypewriterHeading({
     return () => clearInterval(timer);
   }, [text, speed, prefersReducedMotion]);
 
-  const Cursor = () => (
-    <span
-      className="inline-block w-2.5 sm:w-3.5 md:w-4.5 h-[0.75em] bg-gradient-to-b from-red-500 via-rose-500 to-red-600 rounded-sm shadow-[0_0_15px_rgba(239,68,68,0.9)] border-r-2 border-white/90 align-middle animate-pulse mx-1.5"
-      aria-hidden="true"
-    />
-  );
-
   return (
     <div className={cn("inline-flex items-center flex-wrap gap-x-2", className)}>
-      {cursorPosition === "start" && <Cursor />}
+      {cursorPosition === "start" && <TypewriterCursor />}
       {prefixText && <span className="text-white">{prefixText} </span>}
       <span className="text-white">{displayedText}</span>
       {highlightText && (
@@ -65,8 +59,17 @@ export function TypewriterHeading({
         </span>
       )}
       {suffixText && <span className="text-gray-200"> {suffixText}</span>}
-      {cursorPosition === "end" && <Cursor />}
+      {cursorPosition === "end" && <TypewriterCursor />}
     </div>
+  );
+}
+
+function TypewriterCursor() {
+  return (
+    <span
+      className="inline-block w-2.5 sm:w-3.5 md:w-4.5 h-[0.75em] bg-gradient-to-b from-red-500 via-rose-500 to-red-600 rounded-sm shadow-[0_0_15px_rgba(239,68,68,0.9)] border-r-2 border-white/90 align-middle animate-pulse mx-1.5"
+      aria-hidden="true"
+    />
   );
 }
 

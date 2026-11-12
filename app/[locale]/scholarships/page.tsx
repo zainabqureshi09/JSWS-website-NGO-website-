@@ -5,14 +5,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { 
   GraduationCap, 
-  BookOpen, 
-  Award, 
   CheckCircle2, 
-  Sparkles, 
-  UserCheck, 
   FileText, 
   Send,
-  HeartHandshake,
   AlertCircle,
   Loader2
 } from "lucide-react";
@@ -55,6 +50,10 @@ export default function ScholarshipsPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [applicationId, setApplicationId] = useState<string | null>(null);
+
+  const getStudentCnic = (data: typeof formData) =>
+    data.studentCnic ||
+    ("cnic" in data && typeof data.cnic === "string" ? data.cnic : "");
 
   const criteria = [
     { title: "Merit & Academic Record", desc: "Minimum 65%+ or equivalent B grade in recent examinations." },
@@ -111,7 +110,7 @@ export default function ScholarshipsPage() {
     if (!formData.fatherName.trim()) {
       newErrors.fatherName = "Guardian / Father Name is required.";
     }
-    const studentCnicVal = formData.studentCnic || (formData as any).cnic || "";
+    const studentCnicVal = getStudentCnic(formData);
     if (!studentCnicVal.trim() || !validatePakCnic(studentCnicVal)) {
       newErrors.studentCnic = "Valid 13-digit Student CNIC or B-Form is required (e.g. 35202-1234567-1).";
     }
@@ -161,7 +160,7 @@ export default function ScholarshipsPage() {
 
     setIsSubmitting(true);
     try {
-      const studentCnicVal = formData.studentCnic || (formData as any).cnic || "";
+      const studentCnicVal = getStudentCnic(formData);
       const res = await fetch("/api/scholarship", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -197,7 +196,7 @@ export default function ScholarshipsPage() {
     const cleanNumber = rawNumber.replace(/\D/g, "");
     
     const data = lastSubmittedData || formData;
-    const studentCnicVal = data.studentCnic || (data as any).cnic || "";
+    const studentCnicVal = getStudentCnic(data);
 
     const text = `New MASP Scholarship Application Received
 Student Name: ${data.fullName}
@@ -216,56 +215,49 @@ Please review the application in the MASP Scholarship Google Sheet.`;
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50/70">
-      {/* Hero Banner */}
-      <section className="relative py-24 bg-sky-950 text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop"
-            alt="Students studying"
-            width={1600}
-            height={900}
-            priority
-            sizes="100vw"
-            quality={80}
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-sky-950 via-sky-950/80 to-transparent" />
-        </div>
-
-        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-4xl space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-4"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/20 text-sky-300 text-xs sm:text-sm font-bold border border-sky-500/30">
-              <GraduationCap className="w-4 h-4 text-sky-400" />
+      <section className="bg-white py-12 sm:py-16">
+        <div className="container mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
+          <div className="max-w-2xl space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-sky-100 bg-sky-50 px-4 py-1.5 text-xs font-bold text-sky-800 sm:text-sm">
+              <GraduationCap className="h-4 w-4 text-sky-700" aria-hidden="true" />
               <span>Educational Welfare Initiative</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-gray-950 sm:text-5xl lg:text-6xl">
               Muhammad Aslam Scholarship Program (MASP)
             </h1>
 
-            <p className="text-gray-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
               Empowering bright and deserving students by covering tuition fees, books, exam costs, and educational stipends so no talent is lost due to poverty.
             </p>
 
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap gap-3 pt-1">
               <a href="#scholarship-form">
-                <Button size="lg" className="rounded-full bg-sky-600 hover:bg-sky-700 text-white px-8 h-13 text-base font-bold shadow-lg shadow-sky-900/30">
-                  <FileText className="mr-2 w-4 h-4" />
+                <Button size="lg" className="h-12 rounded-full bg-[var(--color-primary)] px-7 text-white hover:bg-[var(--color-primary-dark)]">
+                  <FileText className="mr-2 h-4 w-4" aria-hidden="true" />
                   Apply for Scholarship
                 </Button>
               </a>
               <Link href="/donate?cause=general">
-                <Button size="lg" variant="outline" className="rounded-full border-white/30 bg-white/10 hover:bg-white/20 text-white text-base font-semibold backdrop-blur-md">
+                <Button size="lg" variant="outline" className="h-12 rounded-full border-gray-300 px-7 text-gray-800 hover:bg-gray-50">
                   Sponsor a Student
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </div>
+
+          <div className="overflow-hidden rounded-3xl border border-gray-200 bg-gray-100 shadow-sm">
+            <Image
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop"
+              alt="Students studying"
+              width={1000}
+              height={750}
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              quality={80}
+              className="aspect-[4/3] w-full object-cover"
+            />
+          </div>
         </div>
       </section>
 

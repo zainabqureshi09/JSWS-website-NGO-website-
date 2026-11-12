@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { 
   Stethoscope, 
@@ -21,25 +20,12 @@ import {
   Eye,
   Baby,
   Users,
-  Camera
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BidiLTR } from "@/components/ui/BidiLTR";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-
-const DomeGallery = dynamic(() => import("@/components/DomeGallery"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center bg-teal-950 text-teal-300">
-      <div className="flex flex-col items-center gap-3">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-teal-500 border-t-transparent" />
-        <span className="text-sm font-medium">Loading Medical Gallery...</span>
-      </div>
-    </div>
-  ),
-});
 
 export default function JSMDCPage() {
   const t = useTranslations("JSMDCPage");
@@ -75,68 +61,61 @@ export default function JSMDCPage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen pt-20 bg-gray-50/70">
-      {/* Hero Banner */}
-      <section className="relative py-24 bg-teal-950 text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/hero.jpg"
-            alt="JSMDC Medical Center"
-            width={1600}
-            height={900}
-            priority
-            sizes="100vw"
-            quality={80}
-            className="w-full h-full object-cover opacity-25"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-teal-950 via-teal-950/80 to-transparent" />
-        </div>
-
-        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center max-w-4xl space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-4"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-500/20 text-teal-300 text-xs sm:text-sm font-bold border border-teal-500/30">
-              <Hospital className="w-4 h-4 text-teal-400" />
+    <div className="flex flex-col min-h-screen bg-gray-50/70">
+      <section className="bg-white py-12 sm:py-16">
+        <div className="container mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
+          <div className="max-w-2xl space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-4 py-1.5 text-xs font-bold text-teal-800 sm:text-sm">
+              <Hospital className="h-4 w-4 text-teal-700" aria-hidden="true" />
               <span>{t("hero.badge")}</span>
             </div>
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-gray-950 sm:text-5xl lg:text-6xl">
               {t("hero.title")}
             </h1>
 
-            <p className="text-gray-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
               {t("hero.desc")}
             </p>
 
-            <div className="pt-1 flex flex-wrap items-center justify-center gap-2.5 text-xs font-semibold text-teal-200">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-teal-900/90 border border-teal-500/40 text-teal-300 shadow-sm">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Sindh Health Care Commission (SHCC) Registered & Compliant</span>
+            <div className="flex flex-wrap gap-2.5 text-xs font-semibold text-gray-700">
+              <span className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2">
+                <ShieldCheck className="h-4 w-4 shrink-0 text-teal-700" aria-hidden="true" />
+                <span>Sindh Health Care Commission (SHCC) Registered &amp; Compliant</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-teal-900/90 border border-teal-500/40 text-teal-300 shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Licensed Dental Services & Dental X-Ray Facility</span>
+              <span className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-teal-700" aria-hidden="true" />
+                <span>Licensed Dental Services &amp; Dental X-Ray Facility</span>
               </span>
             </div>
 
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap gap-3 pt-1">
               <Link href="/contact">
-                <Button size="lg" className="rounded-full bg-teal-600 hover:bg-teal-700 text-white px-8 h-13 text-base font-bold shadow-lg shadow-teal-900/30">
-                  <Calendar className="mr-2 w-4 h-4" />
+                <Button size="lg" className="h-12 rounded-full bg-[var(--color-primary)] px-7 text-white hover:bg-[var(--color-primary-dark)]">
+                  <Calendar className="mr-2 h-4 w-4" aria-hidden="true" />
                   {t("hero.appointmentsBtn")}
                 </Button>
               </Link>
               <Link href="/donate?cause=clinic">
-                <Button size="lg" variant="outline" className="rounded-full border-white/30 bg-white/10 hover:bg-white/20 text-white text-base font-semibold backdrop-blur-md">
+                <Button size="lg" variant="outline" className="h-12 rounded-full border-gray-300 px-7 text-gray-800 hover:bg-gray-50">
                   {t("hero.sponsorBtn")}
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </div>
+
+          <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-gray-100 shadow-sm">
+            <Image
+              src="/gp/gp1.jpeg"
+              alt={t("gallery.title")}
+              width={1000}
+              height={750}
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              quality={85}
+              className="aspect-[4/3] w-full object-cover"
+            />
+          </div>
         </div>
       </section>
 
@@ -186,35 +165,36 @@ export default function JSMDCPage() {
             })}
           </div>
 
-          {/* JSMDC 3D Dome Gallery Interactive Showcase */}
-          <div className="mt-20 pt-16 border-t border-gray-100 space-y-8">
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-teal-100 text-teal-800 text-xs font-extrabold tracking-wide uppercase">
-                <Camera className="w-3.5 h-3.5" />
-                <span>Interactive OPD Clinical Dome Showcase</span>
+          <div className="mt-20 space-y-8 border-t border-gray-100 pt-16">
+            <div className="mx-auto max-w-2xl space-y-3 text-center">
+              <span className="inline-flex items-center rounded-full border border-teal-100 bg-teal-50 px-4 py-1.5 text-xs font-bold text-teal-800">
+                {t("gallery.badge")}
               </span>
-              <h3 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900">
-                Medical Center Gallery
+              <h3 className="font-heading text-3xl font-bold text-gray-900 sm:text-4xl">
+                {t("gallery.title")}
               </h3>
-              <p className="text-sm sm:text-base text-gray-600">
-                Drag, rotate, and click images to view doctor consultations and healthcare facilities at Jamila Sultan Medical & Dental Center.
+              <p className="text-sm text-gray-600 sm:text-base">
+                {t("gallery.desc")}
               </p>
             </div>
 
-            <div className="relative w-full h-[550px] sm:h-[650px] lg:h-[700px] rounded-3xl overflow-hidden shadow-xl border border-teal-100 bg-gradient-to-b from-teal-50/70 via-white to-teal-50/40">
-              <DomeGallery
-                images={docImages}
-                grayscale={false}
-                fit={0.65}
-                fitBasis="auto"
-                minRadius={500}
-                maxRadius={800}
-                overlayBlurColor="#f0fdfa"
-                openedImageWidth="360px"
-                openedImageHeight="360px"
-                imageBorderRadius="24px"
-                openedImageBorderRadius="28px"
-              />
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+              {docImages.map((image, index) => (
+                <figure
+                  key={image.src}
+                  className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-100 shadow-sm"
+                >
+                  <Image
+                    src={image.src}
+                    alt={`${t("gallery.title")} ${index + 1}`}
+                    width={640}
+                    height={480}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                    quality={80}
+                    className="aspect-[4/3] w-full object-cover"
+                  />
+                </figure>
+              ))}
             </div>
           </div>
         </div>
@@ -282,4 +262,3 @@ export default function JSMDCPage() {
     </div>
   );
 }
-

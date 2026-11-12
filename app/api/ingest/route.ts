@@ -12,8 +12,9 @@ export async function POST() {
       ingested: result.ingested,
       total: result.total,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Ingest API Error:', error);
-    return NextResponse.json({ error: error?.message || 'Internal server error' }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ error: message || 'Internal server error' }, { status: 500 });
   }
 }
