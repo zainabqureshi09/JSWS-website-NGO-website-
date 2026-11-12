@@ -66,14 +66,14 @@ export default async function RootLayout({
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5PZ2NGZS');`,
+})(window,document,'script','dataLayer','GTM-5TWMTHJC');`,
           }}
         />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-5PZ2NGZS"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5TWMTHJC"
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
